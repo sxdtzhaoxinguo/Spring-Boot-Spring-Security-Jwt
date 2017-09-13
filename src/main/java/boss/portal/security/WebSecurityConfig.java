@@ -3,12 +3,15 @@ package boss.portal.security;
 import boss.portal.service.impl.CustomAuthenticationProvider;
 import boss.portal.web.filter.JWTLoginFilter;
 import boss.portal.web.filter.JWTAuthenticationFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,8 +21,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  * 通过SpringSecurity的配置，将JWTLoginFilter，JWTAuthenticationFilter组合在一起
  * @author zhaoxinguo on 2017/9/13.
  */
+//@Configuration
+//@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 @Configuration
-@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserDetailsService userDetailsService;
@@ -35,7 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/users/signup").permitAll() // 所有 /users/signup 的POST请求 都放行
+                .antMatchers(HttpMethod.POST, "/oauth/signup").permitAll() // 所有 /users/signup 的POST请求 都放行
                 .anyRequest().authenticated()  // 所有请求需要身份认证
                 .and()
                 .addFilter(new JWTLoginFilter(authenticationManager()))

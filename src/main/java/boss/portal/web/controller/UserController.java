@@ -3,6 +3,7 @@ package boss.portal.web.controller;
 import boss.portal.entity.User;
 import boss.portal.exception.UsernameIsExitedException;
 import boss.portal.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.util.DigestUtils;
@@ -19,21 +20,17 @@ import java.util.Map;
 @RequestMapping("/users")
 public class UserController {
 
+    @Autowired
     private UserRepository applicationUserRepository;
 
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserController(UserRepository myUserRepository,
+    /*public UserController(UserRepository myUserRepository,
                           BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.applicationUserRepository = myUserRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
-
-    @RequestMapping("/hello")
-    @ResponseBody
-    public String hello(){
-        return "hello";
-    }
+    }*/
 
     @RequestMapping("/userList")
     @ResponseBody
