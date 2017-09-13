@@ -62,7 +62,7 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
         String token = Jwts.builder()
                 .setSubject(auth.getName())
                 .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 24 * 1000))
-                .signWith(SignatureAlgorithm.HS512, "MyJwtSecret")
+                .signWith(SignatureAlgorithm.HS512, "MyJwtSecret") //采用什么算法是可以自己选择的，不一定非要采用HS512
                 .compact();
         res.addHeader("Authorization", "Bearer " + token);
     }
