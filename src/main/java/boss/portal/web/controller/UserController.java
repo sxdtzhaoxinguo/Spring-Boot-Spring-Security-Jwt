@@ -3,6 +3,7 @@ package boss.portal.web.controller;
 import boss.portal.entity.User;
 import boss.portal.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -47,7 +48,7 @@ public class UserController {
      */
     @PostMapping("/signup")
     public void signUp(@RequestBody User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setPassword(DigestUtils.md5DigestAsHex((user.getPassword()).getBytes()));
         applicationUserRepository.save(user);
     }
 
