@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -40,8 +41,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     // 设置 HTTP 验证规则
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/oauth/signup").permitAll() // 所有 /users/signup 的POST请求 都放行
+        http.cors().and().csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .authorizeRequests()
+                // 所有 /users/signup 的POST请求 都放行
+                .antMatchers(HttpMethod.POST, "/users/signup").permitAll()
                 .anyRequest().authenticated()  // 所有请求需要身份认证
                 .and()
                 .addFilter(new JWTLoginFilter(authenticationManager()))
@@ -50,7 +54,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
         // 使用自定义身份验证组件
         auth.authenticationProvider(new CustomAuthenticationProvider(userDetailsService,bCryptPasswordEncoder));
     }
