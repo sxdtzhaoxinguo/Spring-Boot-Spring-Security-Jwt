@@ -4,8 +4,6 @@ import boss.portal.entity.User;
 import boss.portal.exception.UsernameIsExitedException;
 import boss.portal.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,38 +19,32 @@ import java.util.Map;
 public class UserController {
 
     @Autowired
-    private UserRepository applicationUserRepository;
+    private UserRepository userRepository;
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    /*public UserController(UserRepository myUserRepository,
-                          BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.applicationUserRepository = myUserRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }*/
-
-    @RequestMapping("/userList")
-    @ResponseBody
+    /**
+     * 获取用户列表
+     * @return
+     */
+    @GetMapping("/userList")
     public Map<String, Object> userList(){
-        List<User> myUsers = applicationUserRepository.findAll();
+        List<User> users = userRepository.findAll();
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("users",myUsers);
+        map.put("users",users);
         return map;
     }
 
     /**
-     * 该方法是注册用户的方法，默认放开访问控制
+     * 注册用户 默认开启白名单
      * @param user
      */
     @PostMapping("/signup")
-    public void signUp(@RequestBody User user) {
-        User user1 = applicationUserRepository.findByUsername(user.getUsername());
-        if(null != user1){
-            throw new UsernameIsExitedException("用户已经存在~");
+    public User signup(@RequestBody User user) {
+        User bizUser = userRepository.findByUsername(user.getUsername());
+        if(null != bizUser){
+            throw new UsernameIsExitedException("用户已经存在");
         }
         user.setPassword(DigestUtils.md5DigestAsHex((user.getPassword()).getBytes()));
-        applicationUserRepository.save(user);
+        return userRepository.save(user);
     }
 
 }
