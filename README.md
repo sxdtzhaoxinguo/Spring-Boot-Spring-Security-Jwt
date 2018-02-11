@@ -57,6 +57,7 @@ successfulAuthentication ：用户成功登录后，这个方法会被调用，�
 }
 curl http://localhost:8080/users/userList<br/>
 原因就是因为这个url没有授权,所以返回403<br/>
+![输入图片说明](https://gitee.com/uploads/images/2018/0211/154022_8d9806ae_130820.png "jwt-1.png")
 
 
 2.注册一个新用户<br/>
@@ -64,6 +65,7 @@ curl -H "Content-Type: application/json" -X POST -d '{<br/>
     "username": "admin",<br/>
     "password": "password"<br/>
 }' http://localhost:8080/users/signup<br/>
+![输入图片说明](https://gitee.com/uploads/images/2018/0211/154042_74fb2aa6_130820.png "jwt-2.png")
 
 
 3.登录，会返回token，在http header中，Authorization: Bearer 后面的部分就是token<br/>
@@ -72,6 +74,7 @@ curl -i -H "Content-Type: application/json" -X POST -d '{<br/>
     "password": "password"<br/>
 }' http://localhost:8080/login<br/>
 温馨提醒:这里的login方法是spring specurity框架提供的默认登录url
+![输入图片说明](https://gitee.com/uploads/images/2018/0211/154308_9576ce90_130820.png "jwt-3.png")
 
 
 4.用登录成功后拿到的token再次请求/users/userList接口<br/>
@@ -80,7 +83,7 @@ curl -i -H "Content-Type: application/json" -X POST -d '{<br/>
 curl -H "Content-Type: application/json"<br/>
 -H "Authorization: Bearer XXXXXX"<br/>
 "http://localhost:8080/users/userList"
-
+![输入图片说明](https://gitee.com/uploads/images/2018/0211/154315_241cd6b2_130820.png "jwt-4.png")
 
 
 
