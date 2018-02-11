@@ -1,4 +1,3 @@
-
 增加JWT认证功能
 用户填入用户名密码后，与数据库里存储的用户信息进行比对，如果通过，则认证成功。传统的方法是在认证通过后，创建sesstion，并给客户端返回cookie。
 现在我们采用JWT来处理用户名密码的认证。区别在于，认证通过后，服务器生成一个token，将token返回给客户端，客户端以后的所有请求都需要在http头中指定该token。
@@ -44,24 +43,25 @@ SpringSecurity配置
 这两行，将我们定义的JWT方法加入SpringSecurity的处理流程中。
 
 下面对我们的程序进行简单的验证：
-# 请求hello接口，会收到403错误
+1.请求hello接口，会收到403错误
 curl http://localhost:8080/hello
+原因就是因为这个url根本不存在,所以返回403
 
-# 注册一个新用户
+2.注册一个新用户
 curl -H "Content-Type: application/json" -X POST -d '{
     "username": "admin",
     "password": "password"
 }' http://localhost:8080/users/signup
 
-# 登录，会返回token，在http header中，Authorization: Bearer 后面的部分就是token
+3.登录，会返回token，在http header中，Authorization: Bearer 后面的部分就是token
 curl -i -H "Content-Type: application/json" -X POST -d '{
     "username": "admin",
     "password": "password"
 }' http://localhost:8080/login
 
-# 用登录成功后拿到的token再次请求hello接口
-# 将请求中的XXXXXX替换成拿到的token
-# 这次可以成功调用接口了
+4用登录成功后拿到的token再次请求hello接口
+4.1将请求中的XXXXXX替换成拿到的token
+4.2这次可以成功调用接口了
 curl -H "Content-Type: application/json" \
 -H "Authorization: Bearer XXXXXX" \
 "http://localhost:8080/hello"
