@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
-public class JwtauthApplication {
+public class JwtAuthApplication {
 
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -14,6 +14,6 @@ public class JwtauthApplication {
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(JwtauthApplication.class, args);
+		SpringApplication.run(JwtAuthApplication.class, args);
 	}
 }
