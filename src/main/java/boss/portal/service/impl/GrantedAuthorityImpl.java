@@ -1,4 +1,4 @@
-package boss.portal.entity;
+package boss.portal.service.impl;
 
 import org.springframework.security.core.GrantedAuthority;
 
