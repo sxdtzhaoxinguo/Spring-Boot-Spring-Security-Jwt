@@ -62,9 +62,9 @@ curl -i -H "Content-Type: application/json" -X POST -d '{<br/>
 4.用登录成功后拿到的token再次请求hello接口<br/>
  4.1将请求中的XXXXXX替换成拿到的token<br/>
  4.2这次可以成功调用接口了<br/>
-curl -H "Content-Type: application/json" \<br/>
--H "Authorization: Bearer XXXXXX" \<br/>
-"http://localhost:8080/hello"<br/>
+curl -H "Content-Type: application/json"<br/>
+-H "Authorization: Bearer XXXXXX"<br/>
+"http://localhost:8080/hello"
 
 
 
