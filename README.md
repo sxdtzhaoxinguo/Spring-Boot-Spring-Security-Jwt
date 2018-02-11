@@ -42,29 +42,29 @@ SpringSecurity配置
 
 这两行，将我们定义的JWT方法加入SpringSecurity的处理流程中。
 
-下面对我们的程序进行简单的验证：
-1.请求hello接口，会收到403错误
-curl http://localhost:8080/hello
-原因就是因为这个url根本不存在,所以返回403
+下面对我们的程序进行简单的验证：<br/>
+1.请求hello接口，会收到403错误<br/>
+curl http://localhost:8080/hello<br/>
+原因就是因为这个url根本不存在,所以返回403<br/>
 
-2.注册一个新用户
-curl -H "Content-Type: application/json" -X POST -d '{
-    "username": "admin",
-    "password": "password"
-}' http://localhost:8080/users/signup
+2.注册一个新用户<br/>
+curl -H "Content-Type: application/json" -X POST -d '{<br/>
+    "username": "admin",<br/>
+    "password": "password"<br/>
+}' http://localhost:8080/users/signup<br/>
 
-3.登录，会返回token，在http header中，Authorization: Bearer 后面的部分就是token
-curl -i -H "Content-Type: application/json" -X POST -d '{
-    "username": "admin",
-    "password": "password"
-}' http://localhost:8080/login
+3.登录，会返回token，在http header中，Authorization: Bearer 后面的部分就是token<br/>
+curl -i -H "Content-Type: application/json" -X POST -d '{<br/>
+    "username": "admin",<br/>
+    "password": "password"<br/>
+}' http://localhost:8080/login<br/>
 
 4.用登录成功后拿到的token再次请求hello接口<br/>
-4.1将请求中的XXXXXX替换成拿到的token #
-4.2这次可以成功调用接口了 #
-curl -H "Content-Type: application/json" \
--H "Authorization: Bearer XXXXXX" \
-"http://localhost:8080/hello"
+ 4.1将请求中的XXXXXX替换成拿到的token<br/>
+ 4.2这次可以成功调用接口了<br/>
+curl -H "Content-Type: application/json" \<br/>
+-H "Authorization: Bearer XXXXXX" \<br/>
+"http://localhost:8080/hello"<br/>
 
 
 
