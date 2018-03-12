@@ -1,6 +1,7 @@
 package boss.portal.web.filter;
 
 import boss.portal.entity.User;
+import boss.portal.web.constant.ConstantKey;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
@@ -36,12 +37,9 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
 
     // 接收并解析用户凭证
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest req,
-                                                HttpServletResponse res) throws AuthenticationException {
+    public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException {
         try {
-            User user = new ObjectMapper()
-                    .readValue(req.getInputStream(), User.class);
-
+            User user = new ObjectMapper().readValue(req.getInputStream(), User.class);
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             user.getUsername(),
@@ -62,7 +60,7 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
         String token = Jwts.builder()
                 .setSubject(auth.getName())
                 .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 24 * 1000))
-                .signWith(SignatureAlgorithm.HS512, "Boss@Jwt!&Secret^#") //采用什么算法是可以自己选择的，不一定非要采用HS512
+                .signWith(SignatureAlgorithm.HS512, ConstantKey.SIGNING_KEY) //采用什么算法是可以自己选择的，不一定非要采用HS512
                 .compact();
         res.addHeader("Authorization", "Bearer " + token);
     }
