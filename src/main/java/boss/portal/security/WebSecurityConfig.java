@@ -40,14 +40,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests()
-                // 所有 /users/signup 的POST请求 都放行
-                .antMatchers(HttpMethod.POST, "/users/signup").permitAll()
-                .anyRequest().authenticated()  // 所有请求需要身份认证
-                .and()
-                .addFilter(new JWTLoginFilter(authenticationManager()))
-                .addFilter(new JWTAuthenticationFilter(authenticationManager()));
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+            .authorizeRequests()
+            // 所有 /users/signup 的POST请求 都放行
+            .antMatchers(HttpMethod.POST, "/users/signup").permitAll()
+            .anyRequest().authenticated()  // 所有请求需要身份认证
+            .and()
+            .addFilter(new JWTLoginFilter(authenticationManager()))
+            .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+            .logout() // 默认注销行为为logout，可以通过下面的方式来修改
+            .logoutUrl("/logout")
+            .logoutSuccessUrl("/login")
+            .permitAll();// 设置注销成功后跳转页面，默认是跳转到登录页面;
     }
 
     @Override
