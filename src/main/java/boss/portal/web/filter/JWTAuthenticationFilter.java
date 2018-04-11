@@ -1,7 +1,10 @@
 package boss.portal.web.filter;
 
+import boss.portal.exception.TokenException;
 import boss.portal.web.constant.ConstantKey;
-import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,6 +26,8 @@ import java.util.ArrayList;
  */
 public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
 
+    private static final Logger logger = LoggerFactory.getLogger(JWTAuthenticationFilter.class);
+
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
     }
@@ -43,15 +48,32 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
         String token = request.getHeader("Authorization");
         if (token != null) {
             // parse the token.
-            String user = Jwts.parser()
-                    .setSigningKey(ConstantKey.SIGNING_KEY)
-                    .parseClaimsJws(token.replace("Bearer ", ""))
-                    .getBody()
-                    .getSubject();
-            if (user != null) {
-                return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+            String user = null;
+            try {
+                user = Jwts.parser()
+                        .setSigningKey(ConstantKey.SIGNING_KEY)
+                        .parseClaimsJws(token.replace("Bearer ", ""))
+                        .getBody()
+                        .getSubject();
+                if (user != null) {
+                    return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+                }
+            } catch (ExpiredJwtException e) {
+                logger.error("Token已过期: {} " + e);
+                throw new TokenException("Token已过期");
+            } catch (UnsupportedJwtException e) {
+                logger.error("Token格式错误: {} " + e);
+                throw new TokenException("Token格式错误");
+            } catch (MalformedJwtException e) {
+                logger.error("Token没有被正确构造: {} " + e);
+                throw new TokenException("Token没有被正确构造");
+            } catch (SignatureException e) {
+                logger.error("签名失败: {} " + e);
+                throw new TokenException("签名失败");
+            } catch (IllegalArgumentException e) {
+                logger.error("非法参数异常: {} " + e);
+                throw new TokenException("非法参数异常");
             }
-            return null;
         }
         return null;
     }
