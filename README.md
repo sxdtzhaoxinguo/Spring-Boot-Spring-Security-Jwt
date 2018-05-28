@@ -88,6 +88,10 @@ curl -H "Content-Type: application/json"<br/>
 5.设置了1分钟后Token过期，如果1分钟后再次请求/users/userList接口返回Token过期的异常提示如下图:<br/>
 ![输入图片说明](https://gitee.com/uploads/images/2018/0411/231525_74189dfe_130820.png "Token过期.png")
 
+五：建议及改进<br/>
+若您有任何建议，可以通过1）加入qq群715224124向群主提出，或2）发送邮件至827358369@qq.com向我反馈。本人承诺，任何<br/>
+建议都将会被认真考虑，优秀的建议将会被采用，但不保证一定会在当前版本中实现。<br/>
+
 
 
 
