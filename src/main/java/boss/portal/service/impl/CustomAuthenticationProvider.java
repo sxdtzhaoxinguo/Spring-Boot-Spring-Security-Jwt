@@ -37,20 +37,20 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String password = authentication.getCredentials().toString();
         // 认证逻辑
         UserDetails userDetails = userDetailsService.loadUserByUsername(name);
-        if(null != userDetails){
+        if (null != userDetails) {
             String encodePassword = DigestUtils.md5DigestAsHex((password).getBytes());
-            if(userDetails.getPassword().equals(encodePassword)){
+            if (userDetails.getPassword().equals(encodePassword)) {
                 // 这里设置权限和角色
                 ArrayList<GrantedAuthority> authorities = new ArrayList<>();
-                authorities.add( new GrantedAuthorityImpl("ROLE_ADMIN") );
-                authorities.add( new GrantedAuthorityImpl("AUTH_WRITE") );
+                authorities.add( new GrantedAuthorityImpl("ROLE_ADMIN"));
+                authorities.add( new GrantedAuthorityImpl("AUTH_WRITE"));
                 // 生成令牌 这里令牌里面存入了:name,password,authorities, 当然你也可以放其他内容
                 Authentication auth = new UsernamePasswordAuthenticationToken(name, password, authorities);
                 return auth;
-            }else {
+            } else {
                 throw new BadCredentialsException("密码错误");
             }
-        }else {
+        } else {
             throw new UsernameNotFoundException("用户不存在");
         }
     }

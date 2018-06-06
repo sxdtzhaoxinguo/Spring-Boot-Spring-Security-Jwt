@@ -92,6 +92,9 @@ curl -H "Content-Type: application/json"<br/>
 若您有任何建议，可以通过1）加入qq群715224124向群主提出，或2）发送邮件至827358369@qq.com向我反馈。本人承诺，任何<br/>
 建议都将会被认真考虑，优秀的建议将会被采用，但不保证一定会在当前版本中实现。<br/>
 
+六：集成Swagger-ui，方便前后端分离开发，默认访问地址：http://localhost:8080/swagger-ui.html <br/>
+
+温馨提示：这里的登录接口还是使用的默认地址，如果你的token过期了，需要你重新登录生成新的token.<br/>
 
 
 
