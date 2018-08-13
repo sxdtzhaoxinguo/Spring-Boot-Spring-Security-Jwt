@@ -1,8 +1,8 @@
-package boss.portal.web.filter;
+package boss.portal.filter;
 
 import boss.portal.exception.TokenException;
 import boss.portal.service.impl.GrantedAuthorityImpl;
-import boss.portal.web.constant.ConstantKey;
+import boss.portal.constant.ConstantKey;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * token的校验

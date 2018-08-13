@@ -1,4 +1,4 @@
-package boss.portal.web.controller;
+package boss.portal.controller;
 
 import boss.portal.entity.User;
 import boss.portal.exception.UsernameIsExitedException;

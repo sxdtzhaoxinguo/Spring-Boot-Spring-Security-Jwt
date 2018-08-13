@@ -1,9 +1,8 @@
-package boss.portal.web.filter;
+package boss.portal.filter;
 
 import boss.portal.entity.User;
-import boss.portal.web.constant.ConstantKey;
+import boss.portal.constant.ConstantKey;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.AuthenticationManager;

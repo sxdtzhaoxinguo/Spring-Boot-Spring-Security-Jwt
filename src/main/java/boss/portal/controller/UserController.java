@@ -1,4 +1,4 @@
-package boss.portal.web.controller;
+package boss.portal.controller;
 
 import boss.portal.entity.User;
 import io.swagger.annotations.Api;

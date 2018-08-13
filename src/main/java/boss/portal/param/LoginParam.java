@@ -1,4 +1,4 @@
-package boss.portal.web.param;
+package boss.portal.param;
 
 /**
  * 描述：

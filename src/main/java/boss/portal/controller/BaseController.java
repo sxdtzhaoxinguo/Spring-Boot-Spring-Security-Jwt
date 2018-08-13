@@ -1,4 +1,4 @@
-package boss.portal.web.controller;
+package boss.portal.controller;
 
 import boss.portal.repository.UserRepository;
 import org.slf4j.Logger;

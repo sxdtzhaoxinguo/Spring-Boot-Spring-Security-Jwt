@@ -1,4 +1,4 @@
-package boss.portal.web.constant;
+package boss.portal.constant;
 
 /**
  * 描述：

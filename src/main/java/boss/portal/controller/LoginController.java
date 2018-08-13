@@ -1,19 +1,7 @@
-package boss.portal.web.controller;
+package boss.portal.controller;
 
-import boss.portal.entity.User;
-import boss.portal.web.constant.ConstantKey;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * 描述：

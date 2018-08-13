@@ -32,7 +32,7 @@ import static com.google.common.collect.Lists.newArrayList;
 public class SwaggerConfig {
 
     // 设置默认TOKEN，方便测试
-    private static final String TOKEN = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbi1bUk9MRV9BRE1JTiwgQVVUSF9XUklURV0iLCJleHAiOjE1Mjk3Mzg3MzN9.TnPfcYc_ssozPpmnIwf5GvPjp3H4tppf0nXaihgzsMfcoWrhwzEITicvhFNdInFbbDXWNppPD3Bts1ni5GuTRQ";
+    private static final String TOKEN = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbi1bUk9MRV9BRE1JTiwgQVVUSF9XUklURV0iLCJleHAiOjE1MzU2MTg0MjB9.4geHjqK4DONy8lg0E_NIPUbRJranGOBxmOAXqGS3G3aw903XSwp5kwTAJJBKZgvqPPwGfqUmPXVcNDc_jxeK3Q";
 
     @Bean
     public Docket api() {
@@ -42,7 +42,7 @@ public class SwaggerConfig {
         pars.add(tokenPar.build());
         Docket docket = new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("boss.portal.web.controller"))
+                .apis(RequestHandlerSelectors.basePackage("boss.portal.controller"))
                 .paths(PathSelectors.ant("/**"))
                 .build()
                 .globalOperationParameters(pars)
