@@ -19,7 +19,7 @@ import java.util.List;
  * @author: 赵新国
  * @date: 2018/6/5 18:35
  */
-public class BaseController {
+public abstract class BaseController {
 
     protected Logger logger = LoggerFactory.getLogger(BaseController.class);
 
