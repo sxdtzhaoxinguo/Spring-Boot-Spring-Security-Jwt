@@ -1,11 +1,9 @@
 package boss.portal.exception;
 
-import org.springframework.security.core.AuthenticationException;
-
 /**
  * @author zhaoxinguo on 2017/9/13.
  */
-public class UsernameIsExitedException extends AuthenticationException {
+public class UsernameIsExitedException extends BaseException {
 
     public UsernameIsExitedException(String msg) {
         super(msg);
