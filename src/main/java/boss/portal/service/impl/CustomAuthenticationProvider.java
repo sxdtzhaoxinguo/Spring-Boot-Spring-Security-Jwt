@@ -38,8 +38,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         // 认证逻辑
         UserDetails userDetails = userDetailsService.loadUserByUsername(name);
         if (null != userDetails) {
-            String encodePassword = DigestUtils.md5DigestAsHex((password).getBytes());
-            if (userDetails.getPassword().equals(encodePassword)) {
+            if (bCryptPasswordEncoder.matches(password, userDetails.getPassword())) {
                 // 这里设置权限和角色
                 ArrayList<GrantedAuthority> authorities = new ArrayList<>();
                 authorities.add( new GrantedAuthorityImpl("ROLE_ADMIN"));
