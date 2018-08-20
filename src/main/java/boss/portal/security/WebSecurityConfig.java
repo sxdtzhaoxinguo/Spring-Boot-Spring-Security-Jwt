@@ -1,11 +1,12 @@
 package boss.portal.security;
 
-import boss.portal.handler.CustomAccessDeniedHandler;
-import boss.portal.handler.CustomLogoutSuccessHandler;
-import boss.portal.service.impl.CustomAuthenticationProvider;
 import boss.portal.filter.JWTAuthenticationFilter;
 import boss.portal.filter.JWTLoginFilter;
-import org.springframework.context.annotation.Bean;
+import boss.portal.handler.CustomAccessDeniedHandler;
+import boss.portal.handler.CustomAuthenticationSuccessHandler;
+import boss.portal.handler.CustomLogoutSuccessHandler;
+import boss.portal.service.impl.CustomAuthenticationProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -16,8 +17,6 @@ import org.springframework.security.config.annotation.web.configurers.LogoutConf
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 /**
  * SpringSecurity的配置
@@ -46,14 +45,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             // other public endpoints of your API may be appended to this array
     };
 
+    @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public WebSecurityConfig(UserDetailsService userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.userDetailsService = userDetailsService;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
+    @Autowired
+    private CustomAccessDeniedHandler customAccessDeniedHandler;
+
+    @Autowired
+    private CustomLogoutSuccessHandler customLogoutSuccessHandler;
+
+    @Autowired
+    private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
 
     // 设置 HTTP 验证规则
     @Override
@@ -64,12 +69,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(AUTH_WHITELIST).permitAll()
                 .anyRequest().authenticated()  // 所有请求需要身份认证
                 .and()
+                .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler) // 自定义访问失败处理器
+                .and()
                 .addFilter(new JWTLoginFilter(authenticationManager()))
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
                 .logout() // 默认注销行为为logout，可以通过下面的方式来修改
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login")// 设置注销成功后跳转页面，默认是跳转到登录页面;
-                .logoutSuccessHandler(logoutSuccessHandler())
+                .logoutSuccessHandler(customLogoutSuccessHandler)
                 .permitAll();
     }
 
@@ -79,15 +86,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // 使用自定义身份验证组件
         auth.authenticationProvider(new CustomAuthenticationProvider(userDetailsService, bCryptPasswordEncoder));
     }
-
-    @Bean
-    public LogoutSuccessHandler logoutSuccessHandler() {
-        return new CustomLogoutSuccessHandler();
-    }
-
-    @Bean
-    public AccessDeniedHandler accessDeniedHandler() {
-        return new CustomAccessDeniedHandler();
-    }
-
 }
