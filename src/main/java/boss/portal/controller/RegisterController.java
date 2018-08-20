@@ -4,8 +4,6 @@ import boss.portal.entity.User;
 import boss.portal.exception.UsernameIsExitedException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,9 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users")
 @Api(value = "注册管理", description = "注册管理")
 public class RegisterController extends BaseController {
-
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     /**
      * 注册用户 默认开启白名单

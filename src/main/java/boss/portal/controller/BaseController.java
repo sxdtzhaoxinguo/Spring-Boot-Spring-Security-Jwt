@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,6 +26,9 @@ public abstract class BaseController {
 
     @Autowired
     protected UserRepository userRepository;
+
+    @Autowired
+    protected BCryptPasswordEncoder bCryptPasswordEncoder;
 
     /**
      * 获取用户所拥有的权限列表
