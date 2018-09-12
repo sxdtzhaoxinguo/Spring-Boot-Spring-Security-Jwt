@@ -47,6 +47,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
+        long start = System.currentTimeMillis();
         String token = request.getHeader("Authorization");
         if (token == null || token.isEmpty()) {
             throw new TokenException("Token为空");
@@ -59,6 +60,8 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
                     .parseClaimsJws(token.replace("Bearer ", ""))
                     .getBody()
                     .getSubject();
+            long end = System.currentTimeMillis();
+            logger.info("执行时间: {}", (end - start) + " 毫秒");
             if (user != null) {
                 String[] split = user.split("-")[1].split(",");
                 ArrayList<GrantedAuthority> authorities = new ArrayList<>();
@@ -67,6 +70,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
                 }
                 return new UsernamePasswordAuthenticationToken(user, null, authorities);
             }
+
         } catch (ExpiredJwtException e) {
             logger.error("Token已过期: {} " + e);
             throw new TokenException("Token已过期");
@@ -83,6 +87,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
             logger.error("非法参数异常: {} " + e);
             throw new TokenException("非法参数异常");
         }
+
         return null;
     }
 
