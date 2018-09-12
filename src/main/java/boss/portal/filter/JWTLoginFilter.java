@@ -17,10 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * 验证用户名密码正确后，生成一个token，并将token返回给客户端
@@ -68,9 +65,14 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
             for (GrantedAuthority grantedAuthority : authorities) {
                 roleList.add(grantedAuthority.getAuthority());
             }
+            // 设置过期时间
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(new Date());
+            calendar.add(Calendar.DAY_OF_MONTH, 30);
+            Date time = calendar.getTime();
             token = Jwts.builder()
                     .setSubject(auth.getName() + "-" + roleList)
-                    .setExpiration(new Date(System.currentTimeMillis() + 365 * 24 * 60 * 60 * 1000)) // 设置过期时间 365 * 24 * 60 * 60秒(这里为了方便测试，所以设置了1年的过期时间，实际项目需要根据自己的情况修改)
+                    .setExpiration(time) // 设置过期时间30天
                     .signWith(SignatureAlgorithm.HS512, ConstantKey.SIGNING_KEY) //采用什么算法是可以自己选择的，不一定非要采用HS512
                     .compact();
             // 登录成功后，返回token到header里面
