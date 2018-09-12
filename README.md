@@ -1,4 +1,4 @@
-一:RestApi接口增加JWT认证功能<br/>
+ **一:RestApi接口增加JWT认证功能** <br/>
 用户填入用户名密码后，与数据库里存储的用户信息进行比对，如果通过，则认证成功。传统的方法是在认证通过后，创建sesstion，并给客户端返回cookie。
 现在我们采用JWT来处理用户名密码的认证。区别在于，认证通过后，服务器生成一个token，将token返回给客户端，客户端以后的所有请求都需要在http头中指定该token。
 服务器接收的请求后，会对token的合法性进行验证。验证的内容包括：
@@ -22,7 +22,7 @@ attemptAuthentication ：接收并解析用户凭证。
 successfulAuthentication ：用户成功登录后，这个方法会被调用，我们在这个方法里生成token。
 
 
-二:授权验证
+ **二:授权验证** 
 
 用户一旦登录成功后，会拿到token，后续的请求都会带着这个token，服务端会验证token的合法性。
 
@@ -32,7 +32,7 @@ successfulAuthentication ：用户成功登录后，这个方法会被调用，�
 如果校验通过，就认为这是一个取得授权的合法请求。
 
 
-三:SpringSecurity配置
+ **三:SpringSecurity配置** 
 
 通过SpringSecurity的配置，将上面的方法组合在一起。
 
@@ -45,7 +45,7 @@ successfulAuthentication ：用户成功登录后，这个方法会被调用，�
 这两行，将我们定义的JWT方法加入SpringSecurity的处理流程中。
 
 
-四:简单测试
+ **四:简单测试** 
 下面对我们的程序进行简单的验证：<br/>
 1.请求获取用户列表接口:http://localhost:8080/users/userList接口，会收到403错误<br/>
 {
@@ -88,7 +88,7 @@ curl -H "Content-Type: application/json"<br/>
 5.设置了1分钟后Token过期，如果1分钟后再次请求/users/userList接口返回Token过期的异常提示如下图:<br/>
 ![输入图片说明](https://gitee.com/uploads/images/2018/0411/231525_74189dfe_130820.png "Token过期.png")
 
-五：建议及改进<br/>
+ **五：建议及改进** <br/>
 若您有任何建议，可以通过1）加入qq群715224124向群主提出，或2）发送邮件至827358369@qq.com向我反馈。本人承诺，任何<br/>
 建议都将会被认真考虑，优秀的建议将会被采用，但不保证一定会在当前版本中实现。<br/>
 扫码加群，一起交流：<br/>
