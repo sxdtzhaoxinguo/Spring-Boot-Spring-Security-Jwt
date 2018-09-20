@@ -2,9 +2,7 @@ package boss.portal.security;
 
 import boss.portal.filter.JWTAuthenticationFilter;
 import boss.portal.filter.JWTLoginFilter;
-import boss.portal.handler.CustomAccessDeniedHandler;
-import boss.portal.handler.CustomAuthenticationSuccessHandler;
-import boss.portal.handler.CustomLogoutSuccessHandler;
+import boss.portal.handler.Http401AuthenticationEntryPoint;
 import boss.portal.service.impl.CustomAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +23,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  */
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
@@ -51,14 +50,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Autowired
+    /*@Autowired
     private CustomAccessDeniedHandler customAccessDeniedHandler;
 
     @Autowired
     private CustomLogoutSuccessHandler customLogoutSuccessHandler;
 
     @Autowired
-    private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+    private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;*/
 
     // 设置 HTTP 验证规则
     @Override
@@ -69,14 +68,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(AUTH_WHITELIST).permitAll()
                 .anyRequest().authenticated()  // 所有请求需要身份认证
                 .and()
-                .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler) // 自定义访问失败处理器
-                .and()
+                .exceptionHandling()
+                    .authenticationEntryPoint(
+                            new Http401AuthenticationEntryPoint("Basic realm=\"MyApp\""))
+                    .and()
+//                .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler) // 自定义访问失败处理器
+//                .and()
                 .addFilter(new JWTLoginFilter(authenticationManager()))
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
                 .logout() // 默认注销行为为logout，可以通过下面的方式来修改
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login")// 设置注销成功后跳转页面，默认是跳转到登录页面;
-                .logoutSuccessHandler(customLogoutSuccessHandler)
+//                .logoutSuccessHandler(customLogoutSuccessHandler)
                 .permitAll();
     }
 
