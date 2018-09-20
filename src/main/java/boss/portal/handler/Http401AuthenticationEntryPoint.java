@@ -27,5 +27,4 @@ public class Http401AuthenticationEntryPoint implements AuthenticationEntryPoint
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
     }
 
-
 }
