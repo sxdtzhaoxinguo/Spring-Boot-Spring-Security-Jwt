@@ -100,6 +100,10 @@ curl -H "Content-Type: application/json"<br/>
 ![输入图片说明](https://gitee.com/uploads/images/2018/0606/144830_d28eda7f_130820.png "2.png")
 温馨提示：这里的登录接口还是使用的默认地址，如果你的token过期了，需要你重新登录生成新的token.<br/>
 
+七：微信号 <br/>
+![输入图片说明](https://images.gitee.com/uploads/images/2018/1106/120321_db93bba7_130820.jpeg "个人微信.jpg")
+
+
 
 
 
