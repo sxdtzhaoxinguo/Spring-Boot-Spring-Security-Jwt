@@ -68,11 +68,12 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
             // 设置过期时间
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(new Date());
-            calendar.add(Calendar.DAY_OF_MONTH, 30);
+            /*calendar.add(Calendar.DAY_OF_MONTH, 30);*///30天
+            calendar.add(Calendar.MINUTE, 1);// 1分钟
             Date time = calendar.getTime();
             token = Jwts.builder()
                     .setSubject(auth.getName() + "-" + roleList)
-                    .setExpiration(time) // 设置过期时间30天
+                    .setExpiration(time)
                     .signWith(SignatureAlgorithm.HS512, ConstantKey.SIGNING_KEY) //采用什么算法是可以自己选择的，不一定非要采用HS512
                     .compact();
             // 登录成功后，返回token到header里面
