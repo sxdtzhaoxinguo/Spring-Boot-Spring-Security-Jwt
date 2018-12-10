@@ -11,6 +11,8 @@ public class SpringbootDemo2ApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		long refreshPeriodTime = 36000L;  //seconds为单位,10 hours
+		System.out.println(refreshPeriodTime >> 1);
 	}
 
 }
