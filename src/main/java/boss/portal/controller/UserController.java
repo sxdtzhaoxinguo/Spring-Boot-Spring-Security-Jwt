@@ -1,8 +1,11 @@
 package boss.portal.controller;
 
 import boss.portal.entity.User;
+import boss.portal.queue.ProductDefaultPriceTaskComponent;
+import boss.portal.queue.ProductDefaultPriceTaskQueueClient;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +21,9 @@ import java.util.Map;
 @RequestMapping("/users")
 @Api(value = "用户管理", description = "用户管理")
 public class UserController extends BaseController {
+
+    @Autowired
+    private ProductDefaultPriceTaskQueueClient productDefaultPriceTaskQueueClient;
 
     /**
      * 获取用户列表
@@ -38,6 +44,14 @@ public class UserController extends BaseController {
     public List<String> authorityList(){
         List<String> authentication = getAuthentication();
         return authentication;
+    }
+
+    @ApiOperation(value = "添加任务对队列")
+    @GetMapping("/addTask")
+    public void addTask(String taskId){
+        for (int i=0; i< 1000; i++) {
+            productDefaultPriceTaskQueueClient.addTask(i + "");
+        }
     }
 
 }

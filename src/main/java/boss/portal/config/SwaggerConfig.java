@@ -48,7 +48,7 @@ public class SwaggerConfig {
                 .globalOperationParameters(pars)
                 .apiInfo(apiInfo())
                 .useDefaultResponseMessages(false)
-                .globalResponseMessage(RequestMethod.GET, newArrayList(new ResponseMessageBuilder().code(500).message("500 message").responseModel(new ModelRef("Error")).build(), new ResponseMessageBuilder().code(403).message("Forbidden!!!!!").build()));
+                .globalResponseMessage(RequestMethod.GET, newArrayList(new ResponseMessageBuilder().code(500).message("500 queue").responseModel(new ModelRef("Error")).build(), new ResponseMessageBuilder().code(403).message("Forbidden!!!!!").build()));
         return docket;
     }
 
