@@ -165,7 +165,7 @@ public abstract class AbstractRedisTask<T> implements InitializingBean {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
                 log.error("[{} task] system error,context:{},error:{}", TASK_NAME, e);
-            }catch (Exception e){
+            } catch (Exception e){
                 e.printStackTrace();
             }
 
