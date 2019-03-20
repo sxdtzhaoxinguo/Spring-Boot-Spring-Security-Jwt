@@ -49,7 +49,7 @@ public class UserController extends BaseController {
     @ApiOperation(value = "添加任务对队列")
     @GetMapping("/addTask")
     public void addTask(String taskId){
-        for (int i=0; i< 100; i++) {
+        for (int i=0; i< 10000; i++) {
             productDefaultPriceTaskQueueClient.addTask(i + "");
         }
     }
