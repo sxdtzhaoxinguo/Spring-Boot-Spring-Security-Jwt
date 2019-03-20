@@ -93,7 +93,7 @@ public abstract class AbstractRedisTask<T> implements InitializingBean {
         this.taskIngMap = new DefaultRedisMap<String, Object>(this.REDIS_TASKING_SET_KEY, redisTemplate);
 
         //判断是否为消费者
-        if (consumer){
+        if (consumer) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -170,7 +170,7 @@ public abstract class AbstractRedisTask<T> implements InitializingBean {
             }
 
             //异常是否重试
-            if (RETRY_EXCEPTION){
+            if (RETRY_EXCEPTION) {
                 taskQuene.add(taskId);
             }
             taskIngMap.remove(taskId);
