@@ -54,8 +54,8 @@ public abstract class AbstractRedisTask<T> implements InitializingBean {
     protected ThreadPoolTaskExecutor taskExecutor;
 
     public AbstractRedisTask(String taskName, String executeClassName){
-        Assert.notNull(taskName,"队列名称不能为空.");
-        Assert.notNull(executeClassName,"业务执行类名称不能为空.");
+        Assert.notNull(taskName, "队列名称不能为空.");
+        Assert.notNull(executeClassName, "业务执行类名称不能为空.");
 
         this.TASK_NAME = taskName;
         this.EXECUTE_CLASS_NAME = executeClassName;
@@ -72,13 +72,13 @@ public abstract class AbstractRedisTask<T> implements InitializingBean {
         Assert.notNull(taskId,"任务ID不能为空");
         try {
             if (taskQuene.contains(taskId)) {
-                log.info("[{} tasking add] task already in quene:{}",TASK_NAME, taskId);
+                log.info("[{} tasking add] task already in quene:{}", TASK_NAME, taskId);
                 return false;
             }
             log.info("[{} tasking add] add task:{}",TASK_NAME, taskId);
             return taskQuene.add(taskId);
         } catch (RedisConnectionFailureException ex) {
-            log.error("[{} tasking add] RedisConnectionFailureException  task:{},error:{}.",TASK_NAME, taskId, ex);
+            log.error("[{} tasking add] RedisConnectionFailureException task:{},error:{}.", TASK_NAME, taskId, ex);
             bakTasks.add(taskId);
         } catch (Exception e) {
             log.error("[{} tasking add] task:{},error:{}",TASK_NAME, taskId, e);
@@ -106,7 +106,7 @@ public abstract class AbstractRedisTask<T> implements InitializingBean {
                                     continue;
                                 }
                                 String taskId = taskQuene.poll();
-                                log.info("[{} thread task] get start.taskId{}",TASK_NAME,taskId);
+                                log.info("[{} thread task] get start.taskId{}", TASK_NAME, taskId);
                                 /*避免重复执行*/
                                 if (taskIngMap.get(taskId) == null) {
                                     taskIngMap.put(taskId, taskId);
