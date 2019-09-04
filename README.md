@@ -47,16 +47,16 @@ successfulAuthentication ：用户成功登录后，这个方法会被调用，�
 
  **四:简单测试** 
 下面对我们的程序进行简单的验证：<br/>
-1.请求获取用户列表接口:http://localhost:8080/users/userList接口，会收到403错误<br/>
+1.请求获取用户列表接口:http://localhost:8080/users/userList接口，会收到401错误<br/>
 {
-    "timestamp": 1518333248079,
-    "status": 403,
-    "error": "Forbidden",
-    "message": "Access Denied",
-    "path": "http://localhost:8080/users/userList"
+    "timestamp": 1567564486909,
+    "status": 401,
+    "error": "Unauthorized",
+    "message": "Full authentication is required to access this resource",
+    "path": "/users/userList"
 }
 curl http://localhost:8080/users/userList<br/>
-原因就是因为这个url没有授权,所以返回403<br/>
+原因就是因为这个url没有授权,所以返回401<br/>
 ![输入图片说明](https://gitee.com/uploads/images/2018/0211/154022_8d9806ae_130820.png "jwt-1.png")
 
 

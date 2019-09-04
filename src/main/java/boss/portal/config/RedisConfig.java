@@ -29,9 +29,10 @@ public class RedisConfig {
     @Bean
     JedisConnectionFactory jedisConnectionFactory() {
         JedisConnectionFactory jedisConFactory = new JedisConnectionFactory();
-        jedisConFactory.setHostName("192.168.0.213");
+        jedisConFactory.setHostName("127.0.0.1");
         jedisConFactory.setPort(6379);
-        jedisConFactory.setPassword("ydw@123");
+        // 这里我本地的Reids没有设置密码，暂时注释掉，如果有密码，请放开下面的注释
+        /*jedisConFactory.setPassword("ydw@123");*/
         jedisConFactory.setPoolConfig(jedisPoolConfig());
         jedisConFactory.setDatabase(7);
         return jedisConFactory;
