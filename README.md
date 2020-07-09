@@ -103,3 +103,6 @@ curl -H "Content-Type: application/json"<br/>
 
 八：QQ交流群：715224124
 
+九：增加了刷新token的机制
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0709/141509_1d94c9cf_130820.png "001.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0709/141544_94794671_130820.png "002.png")
