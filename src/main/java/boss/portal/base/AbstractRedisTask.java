@@ -1,5 +1,6 @@
 package boss.portal.base;
 
+import java.util.concurrent.ConcurrentLinkedQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -11,8 +12,6 @@ import org.springframework.data.redis.support.collections.DefaultRedisMap;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.util.Assert;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
-
 /**
  * @FileName: AbstractRedisTask
  * @Author: zhaoxinguo
@@ -22,7 +21,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public abstract class AbstractRedisTask<T> implements InitializingBean {
 
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
-    protected Boolean consumer = false;       //队列运行模式,默认为生产者
+	/*队列运行模式,默认为生产者 */
+    protected Boolean consumer = false;
     /*任务名称*/
     protected String TASK_NAME = "redis-task-demo";
     /* 空闲时，休息时间*/
@@ -56,10 +56,8 @@ public abstract class AbstractRedisTask<T> implements InitializingBean {
     public AbstractRedisTask(String taskName, String executeClassName){
         Assert.notNull(taskName, "队列名称不能为空.");
         Assert.notNull(executeClassName, "业务执行类名称不能为空.");
-
         this.TASK_NAME = taskName;
         this.EXECUTE_CLASS_NAME = executeClassName;
-
         this.REDIS_TASK_LIST_KEY = "BAJIE_REDIS_TASK_LIST_" + taskName.toUpperCase();
         this.REDIS_TASKING_SET_KEY = "BAJIE_REDIS_TASKING_SET_" + taskName.toUpperCase();
     }
@@ -87,6 +85,15 @@ public abstract class AbstractRedisTask<T> implements InitializingBean {
         return true;
     }
 
+   /**
+    * 由BeanFactory设置所有提供的bean属性后调用
+    *（以及满意的BeanFactoryAware和ApplicationContextAware）。
+    * <p>此方法允许Bean实例仅执行初始化
+    * 当所有bean属性都已设置并抛出一个
+    * 在配置错误的情况下例外。
+    * @throws在配置错误的情况下发生异常（例如
+    * 表示无法设置基本属性）或初始化失败。
+    */
     @Override
     public void afterPropertiesSet() throws Exception {
         this.taskQuene = new DefaultRedisList<String>(this.REDIS_TASK_LIST_KEY, redisTemplate);

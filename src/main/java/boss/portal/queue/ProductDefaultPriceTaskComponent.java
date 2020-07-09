@@ -41,14 +41,14 @@ public class ProductDefaultPriceTaskComponent extends ProductDefaultPriceTaskQue
         public void execute(){
             Long startTime = System.currentTimeMillis();
             logger.info("[UpdateProductDefaultPriceTask:{}] start.",taskId);
-            try {
-                Thread.sleep(5000);
-                User user = userRepository.findByUsername("aaa");
-                logger.info("user：{}", user);
-                logger.info("执行任务：{}",taskId);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            User user = userRepository.findByUsername("aaa");
+            logger.info("user：{}", user);
+            logger.info("执行任务：{}",taskId);
+			/*
+			 * try { Thread.sleep(5000); User user = userRepository.findByUsername("aaa");
+			 * logger.info("user：{}", user); logger.info("执行任务：{}",taskId); } catch
+			 * (InterruptedException e) { e.printStackTrace(); }
+			 */
             logger.info("[UpdateProductDefaultPriceTask:{}] end, time:{}ms", taskId, System.currentTimeMillis() - startTime);
         }
     }

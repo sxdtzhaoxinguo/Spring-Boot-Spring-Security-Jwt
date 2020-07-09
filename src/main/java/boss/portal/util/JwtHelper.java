@@ -1,15 +1,14 @@
 package boss.portal.util;
 
+import java.security.Key;
+import java.util.Date;
+import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
+import org.springframework.beans.factory.annotation.Value;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Value;
-
-import javax.crypto.spec.SecretKeySpec;
-import javax.xml.bind.DatatypeConverter;
-import java.security.Key;
-import java.util.Date;
 
 /**
  * @FileName: JwtHelper
@@ -19,9 +18,11 @@ import java.util.Date;
  */
 public class JwtHelper {
 
+	//token超时时间
     @Value("${jwt.expiration}")
-    public long expiration;//token超时时间
+    public long expiration;
 
+    //生成token的秘钥
     @Value("${jwt.secret}")
     public String base64Security;
 
@@ -30,24 +31,18 @@ public class JwtHelper {
      * @param jsonWebToken
      * @return
      */
-    public  Claims parseToken(String jsonWebToken) {
-
-        Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(base64Security))
-                .parseClaimsJws(jsonWebToken).getBody();
+    public Claims parseToken(String jsonWebToken) {
+        Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(base64Security)).parseClaimsJws(jsonWebToken).getBody();
         return claims;
-
     }
 
     /**
      * 新建token
-
      * @param audience
      * @param issuer
-
      * @return
      */
-    public  String createToken(String audience,
-                               String issuer) {
+    public String createToken(String audience, String issuer) {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
         long nowMillis = System.currentTimeMillis();

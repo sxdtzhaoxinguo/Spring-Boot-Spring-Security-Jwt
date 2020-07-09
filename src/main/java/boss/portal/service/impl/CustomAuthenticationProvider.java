@@ -1,5 +1,6 @@
 package boss.portal.service.impl;
 
+import java.util.ArrayList;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -10,9 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.util.DigestUtils;
-
-import java.util.ArrayList;
 
 /**
  * 自定义身份认证验证组件
@@ -30,6 +28,21 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
+  /**
+    *执行与以下合同相同的身份验证
+    * {@link org.springframework.security.authentication.AuthenticationManager＃authenticate（Authentication）}
+    *。
+    *
+    * @param authentication身份验证请求对象。
+    *
+    * @返回包含凭证的经过完全认证的对象。 可能会回来
+    * <code> null </ code>（如果<code> AuthenticationProvider </ code>无法支持）
+    * 对传递的<code> Authentication </ code>对象的身份验证。 在这种情况下，
+    * 支持所提供的下一个<code> AuthenticationProvider </ code>
+    * 将尝试<code> Authentication </ code>类。
+    *
+    * @throws AuthenticationException如果身份验证失败。
+    */
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         // 获取认证的用户名 & 密码

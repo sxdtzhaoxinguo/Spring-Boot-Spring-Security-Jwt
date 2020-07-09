@@ -19,7 +19,7 @@ import redis.clients.jedis.JedisPoolConfig;
 public class RedisConfig {
 
     @Bean
-    JedisPoolConfig jedisPoolConfig() {
+    public JedisPoolConfig jedisPoolConfig() {
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
         jedisPoolConfig.setMaxIdle(10);
         jedisPoolConfig.setMaxTotal(10);
@@ -27,7 +27,7 @@ public class RedisConfig {
     }
 
     @Bean
-    JedisConnectionFactory jedisConnectionFactory() {
+    public JedisConnectionFactory jedisConnectionFactory() {
         JedisConnectionFactory jedisConFactory = new JedisConnectionFactory();
         jedisConFactory.setHostName("127.0.0.1");
         jedisConFactory.setPort(6379);
