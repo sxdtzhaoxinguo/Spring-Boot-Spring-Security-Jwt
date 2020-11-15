@@ -91,7 +91,6 @@ curl -H "Content-Type: application/json"<br/>
  **五：建议及改进** <br/>
 若您有任何建议，可以通过发送邮件至827358369@qq.com向我反馈。本人承诺，任何<br/>
 建议都将会被认真考虑，优秀的建议将会被采用，但不保证一定会在当前版本中实现。<br/>
-扫码加群，一起交流：<br/>
 
 六：集成Swagger-ui，方便前后端分离开发，默认访问地址：http://localhost:8080/swagger-ui.html <br/>
 ![输入图片说明](https://gitee.com/uploads/images/2018/0606/144813_c5dfeec8_130820.png "1.png")
