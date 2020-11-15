@@ -89,7 +89,7 @@ curl -H "Content-Type: application/json"<br/>
 ![输入图片说明](https://gitee.com/uploads/images/2018/0411/231525_74189dfe_130820.png "Token过期.png")
 
  **五：建议及改进** <br/>
-若您有任何建议，可以通过1）加入QQ群715224124向群主提出，或2）发送邮件至827358369@qq.com向我反馈。本人承诺，任何<br/>
+若您有任何建议，可以通过发送邮件至827358369@qq.com向我反馈。本人承诺，任何<br/>
 建议都将会被认真考虑，优秀的建议将会被采用，但不保证一定会在当前版本中实现。<br/>
 扫码加群，一起交流：<br/>
 
@@ -99,7 +99,7 @@ curl -H "Content-Type: application/json"<br/>
 ![输入图片说明](https://gitee.com/uploads/images/2018/0606/144830_d28eda7f_130820.png "2.png")
 温馨提示：这里的登录接口还是使用的默认地址，如果你的token过期了，需要你重新登录生成新的token.<br/>
 
-七：LZ微信 18611966723 <br/>
+七：联系作者(微信) 18611966723 <br/>
 
 八：增加了刷新token的机制
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/0709/141509_1d94c9cf_130820.png "001.png")
