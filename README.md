@@ -104,7 +104,9 @@ curl -H "Content-Type: application/json"<br/>
 
 ## 七：联系作者(微信) 18611966723 <br/>
 
-## 八：增加了刷新token的机制
+## 八：微信群 <br/>
+![输入图片说明](https://images.gitee.com/uploads/images/2021/0423/163632_e510d992_130820.jpeg "微信图片_20210423163613.jpg")
+## 九：增加了刷新token的机制
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/0709/141509_1d94c9cf_130820.png "001.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/0709/141544_94794671_130820.png "002.png")
 
