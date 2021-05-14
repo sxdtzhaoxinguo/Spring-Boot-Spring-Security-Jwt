@@ -102,11 +102,10 @@ curl -H "Content-Type: application/json"<br/>
 ![输入图片说明](https://gitee.com/uploads/images/2018/0606/144830_d28eda7f_130820.png "2.png")
 温馨提示：这里的登录接口还是使用的默认地址，如果你的token过期了，需要你重新登录生成新的token.<br/>
 
-## 七：联系作者(微信) 18611966723 <br/>
+## 七：微信群 <br/>
+![输入图片说明](https://images.gitee.com/uploads/images/2021/0514/174950_7af92724_130820.jpeg "微信图片_20210514174847.jpg")
 
-## 八：微信群 <br/>
-![输入图片说明](https://images.gitee.com/uploads/images/2021/0508/101842_35ab6575_130820.png "微信截图_20210508101808.png")
-## 九：增加了刷新token的机制
+## 八：增加了刷新token的机制
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/0709/141509_1d94c9cf_130820.png "001.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/0709/141544_94794671_130820.png "002.png")
 
