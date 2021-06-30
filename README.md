@@ -103,7 +103,7 @@ curl -H "Content-Type: application/json"<br/>
 温馨提示：这里的登录接口还是使用的默认地址，如果你的token过期了，需要你重新登录生成新的token.<br/>
 
 ## 七：微信群 <br/>
-![输入图片说明](https://images.gitee.com/uploads/images/2021/0622/123041_cd86d210_130820.jpeg "微信图片_20210622113721.jpg")
+![输入图片说明](https://images.gitee.com/uploads/images/2021/0630/093818_ae757741_130820.jpeg "微信图片_20210630093726.jpg")
 
 ## 八：增加了刷新token的机制
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/0709/141509_1d94c9cf_130820.png "001.png")
