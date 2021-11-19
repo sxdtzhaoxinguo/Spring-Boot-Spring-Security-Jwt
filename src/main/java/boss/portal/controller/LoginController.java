@@ -1,6 +1,5 @@
 package boss.portal.controller;
 
-import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @date: 2018/6/22 13:49
  */
 @RestController
-@Api(value = "登录管理", description = "登录管理")
 public class LoginController extends BaseController {
 
     /*@ApiOperation(value = "自定义登录")

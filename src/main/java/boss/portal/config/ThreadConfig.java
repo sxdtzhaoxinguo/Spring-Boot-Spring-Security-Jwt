@@ -1,8 +1,10 @@
 package boss.portal.config;
 
+import boss.portal.util.ApplicationUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * @FileName: ThreadConfig
@@ -23,6 +25,16 @@ public class ThreadConfig {
         executor.setThreadNamePrefix("default_task_executor_thread");
         executor.initialize();
         return executor;
+    }
+
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public ApplicationUtil applicationUtil() {
+        return new ApplicationUtil();
     }
 
 }
