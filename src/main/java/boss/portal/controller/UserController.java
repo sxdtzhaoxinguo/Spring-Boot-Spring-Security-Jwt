@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author zhaoxinguo on 2017/9/13.
@@ -48,10 +49,13 @@ public class UserController extends BaseController {
      * 添加任务到队列
      */
     @GetMapping("/addTask")
-    public void addTask(){
-        for (int i=0; i< 10000; i++) {
-            productDefaultPriceTaskQueueClient.addTask(i + "");
-        }
+    public Map<String, Object> addTask(){
+        UUID uuid = UUID.randomUUID();
+        String taskId = uuid.toString();
+        productDefaultPriceTaskQueueClient.addTask(taskId);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("taskId", taskId);
+        return map;
     }
 
 }
