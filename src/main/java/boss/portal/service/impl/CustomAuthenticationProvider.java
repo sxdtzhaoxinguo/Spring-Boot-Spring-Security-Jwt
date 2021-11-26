@@ -33,7 +33,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     * {@link org.springframework.security.authentication.AuthenticationManager＃authenticate（Authentication）}
     *。
     *
-    * @param authentication身份验证请求对象。
+    * @param authentication 身份验证请求对象。
     *
     * @返回包含凭证的经过完全认证的对象。 可能会回来
     * <code> null </ code>（如果<code> AuthenticationProvider </ code>无法支持）
@@ -41,7 +41,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     * 支持所提供的下一个<code> AuthenticationProvider </ code>
     * 将尝试<code> Authentication </ code>类。
     *
-    * @throws AuthenticationException如果身份验证失败。
+    * @throws AuthenticationException 如果身份验证失败。
     */
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
