@@ -2,6 +2,7 @@ package boss.portal.exception;
 
 import boss.portal.result.Result;
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import org.slf4j.Logger;
@@ -40,8 +41,20 @@ public class GlobalExceptionHandler {
         return Result.error("数据库中已存在该记录");
     }
 
+    @ExceptionHandler(UsernameIsExitedException.class)
+    public Result usernameIsExitedException(UsernameIsExitedException e){
+        logger.error(e.getMessage(), e);
+        return Result.error("用户已经存在");
+    }
+
     @ExceptionHandler(Exception.class)
     public Result handleException(Exception e){
+        logger.error(e.getMessage(), e);
+        return Result.error();
+    }
+
+    @ExceptionHandler(ServiceException.class)
+    public Result serviceException(ServiceException e){
         logger.error(e.getMessage(), e);
         return Result.error();
     }
@@ -91,5 +104,12 @@ public class GlobalExceptionHandler {
     public Result accessDeniedException(AccessDeniedException e) {
         logger.error(e.getMessage(), e);
         return Result.error("Token非法参数异常");
+    }
+
+    @ExceptionHandler(value = MalformedJwtException.class)
+    @ResponseBody
+    public Result malformedJwtException(MalformedJwtException e) {
+        logger.error(e.getMessage(), e);
+        return Result.error("Token没有被正确构造");
     }
 }

@@ -1,4 +1,4 @@
-## 一: RestApi接口增加JWT认证功能
+### 一: RestApi接口增加JWT认证功能
 
 用户填入用户名密码后，与数据库里存储的用户信息进行比对，如果通过，则认证成功。传统的方法是在认证通过后，创建sesstion，并给客户端返回cookie。
 现在我们采用JWT来处理用户名密码的认证。区别在于，认证通过后，服务器生成一个token，将token返回给客户端，客户端以后的所有请求都需要在http头中指定该token。
@@ -23,7 +23,7 @@ attemptAuthentication ：接收并解析用户凭证。
 successfulAuthentication ：用户成功登录后，这个方法会被调用，我们在这个方法里生成token。
 
 
-## 二:授权验证
+### 二:授权验证
 
 用户一旦登录成功后，会拿到token，后续的请求都会带着这个token，服务端会验证token的合法性。
 
@@ -33,7 +33,7 @@ successfulAuthentication ：用户成功登录后，这个方法会被调用，�
 如果校验通过，就认为这是一个取得授权的合法请求。
 
 
-## 三:SpringSecurity配置
+### 三:SpringSecurity配置
 
 
 通过SpringSecurity的配置，将上面的方法组合在一起。
@@ -47,7 +47,7 @@ successfulAuthentication ：用户成功登录后，这个方法会被调用，�
 这两行，将我们定义的JWT方法加入SpringSecurity的处理流程中。
 
 
-## 四:简单测试
+### 四:简单测试
 
 下面对我们的程序进行简单的验证：<br/>
 #### 1.请求获取用户列表接口:http://localhost:8080/users/userList接口，会收到401错误<br/>
@@ -91,26 +91,31 @@ curl -H "Content-Type: application/json"<br/>
 #### 5.设置了1分钟后Token过期，如果1分钟后再次请求/users/userList接口返回Token过期的异常提示如下图:<br/>
 ![输入图片说明](https://gitee.com/uploads/images/2018/0411/231525_74189dfe_130820.png "Token过期.png")
 
-## 五：建议及改进 <br/>
+### 五：建议及改进 <br/>
 若您有任何建议，可以通过发送邮件至827358369@qq.com向我反馈。本人承诺，任何<br/>
 建议都将会被认真考虑，优秀的建议将会被采用，但不保证一定会在当前版本中实现。<br/>
 
-## 六：集成Swagger-ui，方便前后端分离开发，默认访问地址：http://localhost:8080/swagger-ui.html <br/>
+### 六：集成Swagger-ui，方便前后端分离开发，默认访问地址：http://localhost:8080/swagger-ui.html <br/>
 
 ![输入图片说明](https://gitee.com/uploads/images/2018/0606/144813_c5dfeec8_130820.png "1.png")
 ![输入图片说明](https://gitee.com/uploads/images/2018/0606/144822_b3698637_130820.png "22.png")
 ![输入图片说明](https://gitee.com/uploads/images/2018/0606/144830_d28eda7f_130820.png "2.png")
 温馨提示：这里的登录接口还是使用的默认地址，如果你的token过期了，需要你重新登录生成新的token.<br/>
 
-## 七：联系作者(微信) 18611966723 <br/>
+### 七：联系作者(微信) 18611966723 <br/>
 
-## 八：增加了刷新token的机制
+### 八：增加了刷新token的机制
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/0709/141509_1d94c9cf_130820.png "001.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/0709/141544_94794671_130820.png "002.png")
 
-## 2021-11-19
+### 更新日志
+#### 2021-11-19
 1、升级spring-boot版本为最新版本，当前版本为：2.6.0-RC1  <br/>
 2、暂时注释掉swagger的集成，后续再考虑
+#### 2021-11-29
+1、增加了过滤器返回自定义异常 <br/>
+2、去掉了redis的集成，更加轻量级 <br/>
+3、集成了hutool工具包
 
 
 

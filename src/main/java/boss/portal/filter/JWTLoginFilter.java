@@ -3,6 +3,7 @@ package boss.portal.filter;
 import boss.portal.constant.ConstantKey;
 import boss.portal.entity.User;
 import boss.portal.result.Result;
+import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -105,7 +106,7 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
             Map<String, Object> resultMap = new HashMap<>();
             resultMap.put("Authorization", "Bearer " + token);
             Result result = Result.ok(resultMap);
-            response.getWriter().write(result.toString());
+            response.getWriter().write(JSON.toJSONString(result));
 
         } catch (Exception e) {
             e.printStackTrace();
