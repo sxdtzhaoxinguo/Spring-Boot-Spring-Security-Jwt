@@ -2,8 +2,7 @@ package boss.portal.filter;
 
 import boss.portal.constant.ConstantKey;
 import boss.portal.entity.User;
-import boss.portal.result.BaseResult;
-import com.alibaba.fastjson.JSON;
+import boss.portal.result.Result;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -13,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -102,11 +102,10 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
             /*response.addHeader("Authorization", "Bearer " + token);*/
 
             // 登录成功后，返回token到body里面
-            BaseResult<Map<String, Object>> baseResult = new BaseResult<>();
             Map<String, Object> resultMap = new HashMap<>();
             resultMap.put("Authorization", "Bearer " + token);
-            baseResult.setData(resultMap);
-            response.getWriter().write(JSON.toJSONString(baseResult));
+            Result result = Result.ok(resultMap);
+            response.getWriter().write(result.toString());
 
         } catch (Exception e) {
             e.printStackTrace();

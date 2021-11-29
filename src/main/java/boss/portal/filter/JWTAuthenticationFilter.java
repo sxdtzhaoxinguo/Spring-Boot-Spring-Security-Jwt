@@ -53,7 +53,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
         chain.doFilter(request, response);
     }
 
-    private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request, HttpServletResponse response) {
+    private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long start = System.currentTimeMillis();
         String token = request.getHeader("Authorization");
         if (token == null || token.isEmpty()) {
@@ -106,20 +106,29 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
                 return new UsernamePasswordAuthenticationToken(user, null, authorities);
             }
         } catch (ExpiredJwtException e) {
-            logger.error("Token已过期: {} " + e);
-            throw new TokenException("Token已过期");
+            // 异常捕获、发送到ExpiredJwtException
+            request.setAttribute("expiredJwtException", e);
+            // 将异常分发到ExpiredJwtException控制器
+            request.getRequestDispatcher("/expiredJwtException").forward(request, response);
         } catch (UnsupportedJwtException e) {
             logger.error("Token格式错误: {} " + e);
-            throw new TokenException("Token格式错误");
+            // 异常捕获、发送到UnsupportedJwtException
+            request.setAttribute("unsupportedJwtException", e);
+            // 将异常分发到UnsupportedJwtException控制器
+            request.getRequestDispatcher("/unsupportedJwtException").forward(request, response);
         } catch (MalformedJwtException e) {
             logger.error("Token没有被正确构造: {} " + e);
             throw new TokenException("Token没有被正确构造");
         } catch (SignatureException e) {
-            logger.error("签名失败: {} " + e);
-            throw new TokenException("签名失败");
+            // 异常捕获、发送到SignatureException
+            request.setAttribute("signatureException", e);
+            // 将异常分发到SignatureException控制器
+            request.getRequestDispatcher("/signatureException").forward(request, response);
         } catch (IllegalArgumentException e) {
-            logger.error("非法参数异常: {} " + e);
-            throw new TokenException("非法参数异常");
+            // 异常捕获、发送到IllegalArgumentException
+            request.setAttribute("illegalArgumentException", e);
+            // 将异常分发到IllegalArgumentException控制器
+            request.getRequestDispatcher("/illegalArgumentException").forward(request, response);
         }
         return null;
     }
