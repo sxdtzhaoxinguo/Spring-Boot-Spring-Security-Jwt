@@ -7,7 +7,6 @@ import cn.hutool.core.util.ObjectUtil;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,7 +18,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -38,11 +36,11 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
 	public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
     }
-    
+
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         String header = request.getHeader("Authorization");
-        if (ObjectUtil.isNotEmpty(header) && !header.startsWith("Bearer ")) {
+        if (ObjectUtil.isEmpty(header) || !header.startsWith("Bearer ")) {
             chain.doFilter(request, response);
             return;
         }
@@ -129,11 +127,6 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
             request.setAttribute("illegalArgumentException", e);
             // 将异常分发到IllegalArgumentException控制器
             request.getRequestDispatcher("/illegalArgumentException").forward(request, response);
-        } catch (AccessDeniedException e) {
-            // 异常捕获、发送到AccessDeniedException
-            request.setAttribute("accessDeniedException", e);
-            // 将异常分发到AccessDeniedException控制器
-            request.getRequestDispatcher("/accessDeniedException").forward(request, response);
         }
         return null;
     }

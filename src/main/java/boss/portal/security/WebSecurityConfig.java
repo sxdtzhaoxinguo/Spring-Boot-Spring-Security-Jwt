@@ -70,9 +70,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()  // 所有请求需要身份认证
                 .and()
                 .exceptionHandling()
-                    .authenticationEntryPoint(
-                            new Http401AuthenticationEntryPoint("Basic realm=\"MyApp\""))
-                    .and()
+                .authenticationEntryPoint(
+                        new Http401AuthenticationEntryPoint("Basic realm=\"MyApp\""))
+                .and()
 //                .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler) // 自定义访问失败处理器
 //                .and()
                 .addFilter(new JWTLoginFilter(authenticationManager()))
