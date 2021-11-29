@@ -13,11 +13,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -38,30 +40,24 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
     }
     
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         String header = request.getHeader("Authorization");
-        try {
-            if (ObjectUtil.isEmpty(header)) {
-                throw new ServiceException("Token为空");
-            }
-            if (!header.startsWith("Bearer ")) {
-                chain.doFilter(request, response);
-                return;
-            }
-            UsernamePasswordAuthenticationToken authentication = getAuthentication(request, response);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+        if (ObjectUtil.isNotEmpty(header) && !header.startsWith("Bearer ")) {
             chain.doFilter(request, response);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ServletException e) {
-            e.printStackTrace();
+            return;
         }
+        UsernamePasswordAuthenticationToken authentication = getAuthentication(request, response);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        chain.doFilter(request, response);
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             long start = System.currentTimeMillis();
             String token = request.getHeader("Authorization");
+            if (ObjectUtil.isEmpty(token)) {
+                throw new ServiceException("Token不能为空!");
+            }
             // parse the token.
             String user = null;
 
