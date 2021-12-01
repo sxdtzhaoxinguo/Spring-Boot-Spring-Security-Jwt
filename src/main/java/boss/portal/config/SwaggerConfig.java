@@ -53,11 +53,11 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfo(
-                "MICAI-SPRINGMVC-SWAGGER REST API",
+                "SPRINGBOOT-SPRINGSECURITY-JWT-DEMO-SWAGGER REST API",
                 "Some custom description of API.",
                 "API TOS",
                 "Terms of service",
-                new Contact("Zhao XinGuo", "www.12366.com", "zhaoxg@12366.com"),
+                new Contact("Zhao XinGuo", "https://javaymw.com/", "sxdtzhaoxinguo@163.com"),
                 "License of API", "API license URL", Collections.emptyList());
     }
 }
