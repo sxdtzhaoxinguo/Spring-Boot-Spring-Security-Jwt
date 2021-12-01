@@ -1,11 +1,9 @@
 package boss.portal.controller;
 
 import boss.portal.entity.User;
-import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +13,6 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/users")
-@Api("用户管理")
 public class UserController extends BaseController {
 
     /**
@@ -32,7 +29,7 @@ public class UserController extends BaseController {
     }
 
     /**
-     * 查询用户权限
+     * 获取用户权限
      * @return
      */
     @GetMapping("/authorityList")
