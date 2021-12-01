@@ -1,8 +1,7 @@
 package boss.portal.controller;
 
 import boss.portal.entity.User;
-import boss.portal.queue.ProductDefaultPriceTaskQueueClient;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,17 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * @author zhaoxinguo on 2017/9/13.
  */
 @RestController
 @RequestMapping("/users")
+@Api("用户管理")
 public class UserController extends BaseController {
-
-    @Autowired
-    private ProductDefaultPriceTaskQueueClient productDefaultPriceTaskQueueClient;
 
     /**
      * 获取用户列表
@@ -43,19 +39,6 @@ public class UserController extends BaseController {
     public List<String> authorityList(){
         List<String> authentication = getAuthentication();
         return authentication;
-    }
-
-    /**
-     * 添加任务到队列
-     */
-    @GetMapping("/addTask")
-    public Map<String, Object> addTask(){
-        UUID uuid = UUID.randomUUID();
-        String taskId = uuid.toString();
-        productDefaultPriceTaskQueueClient.addTask(taskId);
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("taskId", taskId);
-        return map;
     }
 
 }
