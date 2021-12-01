@@ -1,17 +1,12 @@
 package boss.portal.filter;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import boss.portal.constant.ConstantKey;
+import boss.portal.entity.User;
+import boss.portal.result.Result;
+import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,12 +14,12 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import boss.portal.constant.ConstantKey;
-import boss.portal.entity.User;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * 自定义JWT登录过滤器
@@ -41,8 +36,14 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
     public JWTLoginFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
-    
-    // 尝试身份认证(接收并解析用户凭证)
+
+    /**
+     * 尝试身份认证(接收并解析用户凭证)
+     * @param req
+     * @param res
+     * @return
+     * @throws AuthenticationException
+     */
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException {
         try {
@@ -58,7 +59,15 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
         }
     }
 
-    // 认证成功(用户成功登录后，这个方法会被调用，我们在这个方法里生成token)
+    /**
+     * 认证成功(用户成功登录后，这个方法会被调用，我们在这个方法里生成token)
+     * @param request
+     * @param response
+     * @param chain
+     * @param auth
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     protected void successfulAuthentication(HttpServletRequest request,
                                             HttpServletResponse response,
@@ -91,7 +100,14 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
             // 生成token end
             
             // 登录成功后，返回token到header里面
-            response.addHeader("Authorization", "Bearer " + token);
+            /*response.addHeader("Authorization", "Bearer " + token);*/
+
+            // 登录成功后，返回token到body里面
+            Map<String, Object> resultMap = new HashMap<>();
+            resultMap.put("Authorization", "Bearer " + token);
+            Result result = Result.ok(resultMap);
+            response.getWriter().write(JSON.toJSONString(result));
+
         } catch (Exception e) {
             e.printStackTrace();
         }
