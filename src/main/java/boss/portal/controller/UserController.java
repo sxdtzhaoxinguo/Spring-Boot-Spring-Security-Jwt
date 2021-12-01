@@ -1,6 +1,7 @@
 package boss.portal.controller;
 
 import boss.portal.entity.User;
+import io.swagger.annotations.ApiModel;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +12,7 @@ import java.util.Map;
 /**
  * @author zhaoxinguo on 2017/9/13.
  */
+@ApiModel(description = "用户管理", value = "用户管理")
 @RestController
 @RequestMapping("/users")
 public class UserController extends BaseController {
