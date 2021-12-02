@@ -83,6 +83,10 @@ curl -H "Content-Type: application/json"<br/>
 
 ### 联系作者(微信) 18611966723 <br/>
 
+### 加入QQ讨论群 <br/>
+![输入图片说明](sql/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20211202140605.jpg)
+
+
 ### 增加了刷新token的机制
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/0709/141509_1d94c9cf_130820.png "001.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/0709/141544_94794671_130820.png "002.png")
