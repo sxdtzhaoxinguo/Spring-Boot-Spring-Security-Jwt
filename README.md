@@ -84,7 +84,7 @@ curl -H "Content-Type: application/json"<br/>
 ### 联系作者(微信) 18611966723 <br/>
 
 ### 加入QQ讨论群 <br/>
-![输入图片说明](sql/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20211202140605.jpg)
+![输入图片说明](sql/image.png)
 
 
 ### 增加了刷新token的机制
