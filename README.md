@@ -83,7 +83,7 @@ curl -H "Content-Type: application/json"<br/>
 
 ### 加入微信交流群 <br/>
 
-添加群主微信拉你进群（免费哈） dlzhaoxinguo <br/>
+添加群主微信拉你进群，备注进群（免费哈） dlzhaoxinguo <br/>
 
 ### 加入QQ讨论群 <br/>
 ![输入图片说明](sql/image.png)
