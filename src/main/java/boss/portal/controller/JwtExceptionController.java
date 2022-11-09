@@ -1,6 +1,7 @@
 package boss.portal.controller;
 
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +43,13 @@ public class JwtExceptionController {
     public void illegalArgumentException(HttpServletRequest request) throws IllegalArgumentException {
         if (request.getAttribute("illegalArgumentException") instanceof IllegalArgumentException) {
             throw ((IllegalArgumentException) request.getAttribute("illegalArgumentException"));
+        }
+    }
+
+    @RequestMapping("/malformedJwtException")
+    public void malformedJwtException(HttpServletRequest request) throws MalformedJwtException {
+        if (request.getAttribute("malformedJwtException") instanceof MalformedJwtException) {
+            throw ((MalformedJwtException) request.getAttribute("malformedJwtException"));
         }
     }
 
