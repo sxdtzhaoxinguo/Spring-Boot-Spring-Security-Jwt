@@ -81,7 +81,13 @@ curl -H "Content-Type: application/json"<br/>
 ![输入图片说明](https://gitee.com/uploads/images/2018/0606/144830_d28eda7f_130820.png "2.png")
 温馨提示：这里的登录接口还是使用的默认地址，如果你的token过期了，需要你重新登录生成新的token.<br/>
 
-### 联系作者(微信) 18611966723 <br/>
+### 加入微信交流群 <br/>
+
+添加群主微信拉你进群，备注进群（免费哈） dlzhaoxinguo <br/>
+
+### 加入QQ讨论群 <br/>
+![输入图片说明](sql/image.png)
+
 
 ### 增加了刷新token的机制
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/0709/141509_1d94c9cf_130820.png "001.png")

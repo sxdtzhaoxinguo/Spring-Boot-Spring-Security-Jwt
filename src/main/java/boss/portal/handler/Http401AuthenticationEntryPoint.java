@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import boss.portal.constant.ConstantKey;
+
 /**
  * @Auther: zhaoxinguo
  * @Date: 2018/9/20 14:55
@@ -23,7 +25,7 @@ public class Http401AuthenticationEntryPoint implements AuthenticationEntryPoint
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        response.setHeader("Authorization", this.headerValue);
+        response.setHeader(ConstantKey.HEADER_KEY, this.headerValue);
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
     }
 

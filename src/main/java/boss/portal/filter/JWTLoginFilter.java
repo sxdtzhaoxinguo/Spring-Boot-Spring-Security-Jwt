@@ -100,11 +100,11 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
             // 生成token end
             
             // 登录成功后，返回token到header里面
-            /*response.addHeader("Authorization", "Bearer " + token);*/
+            /*response.addHeader(ConstantKey.HEADER_KEY, ConstantKey.BEARER + token);*/
 
             // 登录成功后，返回token到body里面
             Map<String, Object> resultMap = new HashMap<>();
-            resultMap.put("Authorization", "Bearer " + token);
+            resultMap.put(ConstantKey.HEADER_KEY, ConstantKey.BEARER + token);
             Result result = Result.ok(resultMap);
             response.getWriter().write(JSON.toJSONString(result));
 
