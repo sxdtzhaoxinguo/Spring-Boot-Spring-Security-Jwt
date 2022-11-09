@@ -34,7 +34,7 @@ public class JwtExceptionController {
 
     @RequestMapping("/signatureException")
     public void signatureException(HttpServletRequest request) throws SignatureException {
-        if (request.getAttribute("signatureException") instanceof ExpiredJwtException) {
+        if (request.getAttribute("signatureException") instanceof SignatureException) {
             throw ((SignatureException) request.getAttribute("signatureException"));
         }
     }
