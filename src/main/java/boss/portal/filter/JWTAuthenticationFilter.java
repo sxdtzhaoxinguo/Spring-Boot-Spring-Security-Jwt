@@ -39,8 +39,8 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String header = request.getHeader("Authorization");
-        if (ObjectUtil.isEmpty(header) || !header.startsWith("Bearer ")) {
+        String header = request.getHeader(ConstantKey.HEADER_KEY);
+        if (ObjectUtil.isEmpty(header) || !header.startsWith(ConstantKey.BEARER)) {
             chain.doFilter(request, response);
             return;
         }
@@ -52,14 +52,14 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             long start = System.currentTimeMillis();
-            String token = request.getHeader("Authorization");
+            String token = request.getHeader(ConstantKey.HEADER_KEY);
             if (ObjectUtil.isEmpty(token)) {
                 throw new ServiceException("Token不能为空!");
             }
             // parse the token.
             String user = null;
 
-            Claims claims = Jwts.parser().setSigningKey(ConstantKey.SIGNING_KEY).parseClaimsJws(token.replace("Bearer ", "")).getBody();
+            Claims claims = Jwts.parser().setSigningKey(ConstantKey.SIGNING_KEY).parseClaimsJws(token.replace(ConstantKey.BEARER, "")).getBody();
             // token签发时间
             long issuedAt = claims.getIssuedAt().getTime();
             // 当前时间
