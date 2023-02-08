@@ -85,9 +85,12 @@ curl -H "Content-Type: application/json"<br/>
 
 添加群主微信拉你进群，备注进群（免费哈） dlzhaoxinguo <br/>
 
-### 加入QQ讨论群 <br/>
-![输入图片说明](sql/image.png)
+### 加入讨论群 <br/>
+微信群:
+<img src="./doc/sql/image-20221227165801242.png" alt="image-20221227165801242" style="zoom:50%;" />
 
+QQ群:
+<img src="./doc/sql/image-20221227165831819.png" alt="image-20221227165831819" style="zoom:50%;" />
 
 ### 增加了刷新token的机制
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/0709/141509_1d94c9cf_130820.png "001.png")
