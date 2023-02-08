@@ -1,3 +1,9 @@
+### Spring Boot+Spring Security+Jwt 2.0来袭
+
+> 新一代基于Spring Boot、Spring Security、Oauth2等实现的权限控制和认证服务、支持第三方oauth授权和获取资源信息功能等、详情请点击下面的项目地址查看，欢迎大家使用体验，觉得不错的给个star，谢谢！
+
+> 项目地址：https://gitee.com/micai-code/micai-platform-auth
+
 ### RestApi接口增加JWT认证功能
 
 用户填入用户名密码后，与数据库里存储的用户信息进行比对，如果通过，则认证成功。传统的方法是在认证通过后，创建sesstion，并给客户端返回cookie。
