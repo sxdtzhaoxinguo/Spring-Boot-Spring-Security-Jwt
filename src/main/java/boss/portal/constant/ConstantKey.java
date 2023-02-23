@@ -4,7 +4,7 @@ package boss.portal.constant;
  * 描述：
  * <p>
  *
- * @author: 赵新国
+ * @author: zhaoxinguo
  * @date: 2018/3/12 16:07
  */
 public class ConstantKey {

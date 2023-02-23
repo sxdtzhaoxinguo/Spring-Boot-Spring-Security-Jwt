@@ -4,7 +4,7 @@ package boss.portal.param;
  * 描述：
  * <p>
  *
- * @author: 赵新国
+ * @author: zhaoxinguo
  * @date: 2018/6/4 20:48
  */
 public class LoginParam {

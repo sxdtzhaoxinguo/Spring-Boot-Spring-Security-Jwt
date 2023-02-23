@@ -4,7 +4,7 @@ package boss.portal.exception;
  * 描述：
  * <p>
  *
- * @author: 赵新国
+ * @author: zhaoxinguo
  * @date: 2018/4/11 23:06
  */
 public class ServiceException extends RuntimeException {
