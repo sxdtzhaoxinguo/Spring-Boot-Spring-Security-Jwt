@@ -3,6 +3,7 @@ package boss.portal.controller;
 import boss.portal.entity.User;
 import boss.portal.exception.UsernameIsExitedException;
 import boss.portal.param.Result;
+import com.alibaba.fastjson.JSON;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +42,7 @@ public class UserController extends BaseController {
     @GetMapping("/userList")
     public Result userList(){
         List<User> users = userRepository.findAll();
-        logger.info("users: {}", users);
+        logger.info("users: {}", JSON.toJSON(users));
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("users",users);
         return Result.ok(map);
