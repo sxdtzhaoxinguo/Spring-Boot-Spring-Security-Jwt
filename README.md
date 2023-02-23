@@ -1,8 +1,7 @@
 ### 新一代 Spring Boot+Spring Security+Jwt 2.0来袭 ☟☟☟
 
-> 新一代基于Spring Boot、Spring Security、Oauth2等实现的权限控制和认证服务、支持第三方oauth授权和获取资源信息功能等、详情请点击下面的项目地址查看，欢迎大家使用体验，觉得不错的给个star，谢谢！
-
-> 项目地址：https://gitee.com/micai-code/micai-platform-auth
+新一代基于Spring Boot、Spring Security、Oauth2等实现的权限控制和认证服务、支持第三方oauth授权和获取资源信息功能等、详情请点击下面的项目地址查看，欢迎大家使用体验，觉得不错的给个star，谢谢！
+项目地址：https://gitee.com/micai-code/micai-platform-auth
 
 ## RestApi接口增加JWT认证功能
 
