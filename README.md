@@ -102,15 +102,3 @@ QQ群:
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/0709/141509_1d94c9cf_130820.png "001.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/0709/141544_94794671_130820.png "002.png")
 
-### 更新日志
-#### 2021-11-19
-1、升级spring-boot版本为最新版本，当前版本为：2.6.0-RC1  <br/>
-2、暂时注释掉swagger的集成，后续再考虑
-#### 2021-11-29
-1、增加了过滤器返回自定义异常 <br/>
-2、去掉了redis的集成，更加轻量级 <br/>
-3、集成了hutool工具包
-
-
-
-
