@@ -2,6 +2,7 @@ package boss.portal.controller;
 
 import boss.portal.entity.User;
 import boss.portal.exception.UsernameIsExitedException;
+import boss.portal.param.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.web.bind.annotation.*;
@@ -38,12 +39,12 @@ public class UserController extends BaseController {
      */
     @ApiModelProperty(value = "获取用户列表")
     @GetMapping("/userList")
-    public Map<String, Object> userList(){
+    public Result userList(){
         List<User> users = userRepository.findAll();
         logger.info("users: {}", users);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("users",users);
-        return map;
+        return Result.ok(map);
     }
 
     /**
@@ -52,9 +53,9 @@ public class UserController extends BaseController {
      */
     @ApiModelProperty(value = "获取用户权限")
     @GetMapping("/authorityList")
-    public List<String> authorityList(){
+    public Result authorityList(){
         List<String> authentication = getAuthentication();
-        return authentication;
+        return Result.ok(authentication);
     }
 
 }
