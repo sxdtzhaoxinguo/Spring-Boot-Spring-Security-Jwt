@@ -1,4 +1,4 @@
-package boss.portal.security;
+package boss.portal.config;
 
 import boss.portal.filter.JWTAuthenticationFilter;
 import boss.portal.filter.JWTLoginFilter;

@@ -1,6 +1,6 @@
 package boss.portal.exception;
 
-import boss.portal.result.Result;
+import boss.portal.param.Result;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;

@@ -2,7 +2,7 @@ package boss.portal.filter;
 
 import boss.portal.constant.ConstantKey;
 import boss.portal.entity.User;
-import boss.portal.result.Result;
+import boss.portal.param.Result;
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
