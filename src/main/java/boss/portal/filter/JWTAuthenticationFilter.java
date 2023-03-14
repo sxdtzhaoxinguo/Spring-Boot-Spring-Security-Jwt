@@ -13,6 +13,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -107,10 +108,18 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
             logger.info("执行时间: {}", (end - start) + " 毫秒");
             user = claims.getSubject();
             if (user != null) {
-                String[] split = user.split("-")[1].split(",");
+                String[] authoritys = user.split("-")[1].split(",");
                 ArrayList<GrantedAuthority> authorities = new ArrayList<>();
-                for (int i=0; i < split.length; i++) {
-                    authorities.add(new GrantedAuthorityImpl(split[i]));
+                for (int i = 0; i < authoritys.length; i++) {
+                    String authority = authoritys[i];
+                    // 处理解析权限异常，在注入权限的时候直接用的：用户名+数组，导致字符串中是"admin-[admin,xx1,xx2]"，而在解析的时候没有把两个括号[]去掉，导致权限识别错误，识别成了"[admin"和"xx2]"。
+                    if (i == 0) {
+                        authority = authority.replaceAll("\\[", "");
+                    }
+                    if (i == authoritys.length - 1) {
+                        authority = authority.replaceAll("\\]", "");
+                    }
+                    authorities.add(new GrantedAuthorityImpl(authority));
                 }
                 return new UsernamePasswordAuthenticationToken(user, null, authorities);
             }
