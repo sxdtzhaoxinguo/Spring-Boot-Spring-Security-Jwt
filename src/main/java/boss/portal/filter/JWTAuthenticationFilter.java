@@ -1,5 +1,6 @@
 package boss.portal.filter;
 
+import boss.portal.constant.AuthWhiteList;
 import boss.portal.constant.ConstantKey;
 import boss.portal.exception.ServiceException;
 import boss.portal.service.impl.GrantedAuthorityImpl;
@@ -7,6 +8,7 @@ import cn.hutool.core.util.ObjectUtil;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,9 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 /**
  * 自定义JWT认证过滤器
@@ -39,11 +39,23 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+        String requestURI = request.getRequestURI();
         String header = request.getHeader(ConstantKey.HEADER_KEY);
         if (ObjectUtil.isEmpty(header) || !header.startsWith(ConstantKey.BEARER)) {
             chain.doFilter(request, response);
             return;
         }
+
+        // 如果token不为空，并且是以指定票据开头
+        if (ObjectUtil.isNotEmpty(header) && header.startsWith(ConstantKey.BEARER)) {
+            // 如果请求路径是放行路径，则直接跳过认证
+            List<String> anonUrlList = Arrays.asList(AuthWhiteList.AUTH_WHITELIST);
+            if (anonUrlList.contains(requestURI)) {
+                chain.doFilter(request, response);
+                return;
+            }
+        }
+
         UsernamePasswordAuthenticationToken authentication = getAuthentication(request, response);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(request, response);

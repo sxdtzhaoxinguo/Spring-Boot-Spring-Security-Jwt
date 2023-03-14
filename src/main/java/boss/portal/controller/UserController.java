@@ -59,4 +59,18 @@ public class UserController extends BaseController {
         return Result.ok(authentication);
     }
 
+    /**
+     * 获取用户列表V2-验证不登录就可以直接请求该接口（前端传递token的情况下）
+     * @return
+     */
+    @ApiModelProperty(value = "获取用户列表V2")
+    @GetMapping("/userListV2")
+    public Result userListV2(){
+        List<User> users = userRepository.findAll();
+        logger.info("users: {}", JSON.toJSON(users));
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("users",users);
+        return Result.ok(map);
+    }
+
 }
