@@ -1,5 +1,6 @@
 package boss.portal.filter;
 
+import boss.portal.constant.AuthWhiteList;
 import boss.portal.constant.ConstantKey;
 import boss.portal.exception.ServiceException;
 import boss.portal.service.impl.GrantedAuthorityImpl;
@@ -18,9 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 /**
  * 自定义JWT认证过滤器
@@ -39,11 +38,23 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+        String requestURI = request.getRequestURI();
         String header = request.getHeader(ConstantKey.HEADER_KEY);
         if (ObjectUtil.isEmpty(header) || !header.startsWith(ConstantKey.BEARER)) {
             chain.doFilter(request, response);
             return;
         }
+
+        // 如果token不为空，并且是以指定票据开头
+        if (ObjectUtil.isNotEmpty(header) && header.startsWith(ConstantKey.BEARER)) {
+            // 如果请求路径是放行路径，则直接跳过认证
+            List<String> anonUrlList = Arrays.asList(AuthWhiteList.AUTH_WHITELIST);
+            if (anonUrlList.contains(requestURI)) {
+                chain.doFilter(request, response);
+                return;
+            }
+        }
+
         UsernamePasswordAuthenticationToken authentication = getAuthentication(request, response);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(request, response);
@@ -95,10 +106,18 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
             logger.info("执行时间: {}", (end - start) + " 毫秒");
             user = claims.getSubject();
             if (user != null) {
-                String[] split = user.split("-")[1].split(",");
+                String[] authoritys = user.split("-")[1].split(",");
                 ArrayList<GrantedAuthority> authorities = new ArrayList<>();
-                for (int i=0; i < split.length; i++) {
-                    authorities.add(new GrantedAuthorityImpl(split[i]));
+                for (int i = 0; i < authoritys.length; i++) {
+                    String authority = authoritys[i];
+                    // 处理解析权限异常，在注入权限的时候直接用的：用户名+数组，导致字符串中是"admin-[admin,xx1,xx2]"，而在解析的时候没有把两个括号[]去掉，导致权限识别错误，识别成了"[admin"和"xx2]"。
+                    if (i == 0) {
+                        authority = authority.replaceAll("\\[", "");
+                    }
+                    if (i == authoritys.length - 1) {
+                        authority = authority.replaceAll("\\]", "");
+                    }
+                    authorities.add(new GrantedAuthorityImpl(authority));
                 }
                 return new UsernamePasswordAuthenticationToken(user, null, authorities);
             }

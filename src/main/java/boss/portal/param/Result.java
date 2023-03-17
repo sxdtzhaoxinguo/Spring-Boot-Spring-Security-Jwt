@@ -1,4 +1,4 @@
-package boss.portal.result;
+package boss.portal.param;
 
 import java.util.HashMap;
 import java.util.Map;

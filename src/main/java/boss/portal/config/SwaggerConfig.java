@@ -25,7 +25,7 @@ import static cn.hutool.core.collection.CollUtil.newArrayList;
 /**
  * 描述：
  * <p>
- * Author: 赵新国
+ * Author: zhaoxinguo
  * Date: 2017/12/12 15:32
  */
 @Configuration

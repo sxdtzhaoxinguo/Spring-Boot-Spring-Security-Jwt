@@ -1,10 +1,9 @@
 ### 新一代 Spring Boot+Spring Security+Jwt 2.0来袭 ☟☟☟
 
-> 新一代基于Spring Boot、Spring Security、Oauth2等实现的权限控制和认证服务、支持第三方oauth授权和获取资源信息功能等、详情请点击下面的项目地址查看，欢迎大家使用体验，觉得不错的给个star，谢谢！
+新一代基于Spring Boot、Spring Security、Oauth2等实现的权限控制和认证服务、支持第三方oauth授权和获取资源信息功能等、详情请点击下面的项目地址查看，欢迎大家使用体验，觉得不错的给个star，谢谢！
+项目地址：https://gitee.com/micai-code/micai-platform-auth
 
-> 项目地址：https://gitee.com/micai-code/micai-platform-auth
-
-### RestApi接口增加JWT认证功能
+## RestApi接口增加JWT认证功能
 
 用户填入用户名密码后，与数据库里存储的用户信息进行比对，如果通过，则认证成功。传统的方法是在认证通过后，创建sesstion，并给客户端返回cookie。
 现在我们采用JWT来处理用户名密码的认证。区别在于，认证通过后，服务器生成一个token，将token返回给客户端，客户端以后的所有请求都需要在http头中指定该token。
@@ -76,9 +75,6 @@ curl -H "Content-Type: application/json"<br/>
 #### 5.设置了1分钟后Token过期，如果1分钟后再次请求/users/userList接口返回Token过期的异常提示如下图:<br/>
 ![输入图片说明](https://gitee.com/uploads/images/2018/0411/231525_74189dfe_130820.png "Token过期.png")
 
-### 建议及改进 <br/>
-若您有任何建议，可以通过发送邮件至827358369@qq.com向我反馈。本人承诺，任何<br/>
-建议都将会被认真考虑，优秀的建议将会被采用，但不保证一定会在当前版本中实现。<br/>
 
 ### 集成Swagger-ui，方便前后端分离开发，默认访问地址：http://localhost:8080/swagger-ui.html <br/>
 
@@ -89,7 +85,7 @@ curl -H "Content-Type: application/json"<br/>
 
 ### 加入微信交流群 <br/>
 
-添加群主微信拉你进群，备注进群（免费哈） dlzhaoxinguo <br/>
+添加微信拉你进群，备注进群（免费哈） dlzhaoxinguo <br/>
 
 ### 加入讨论群 <br/>
 微信群:
@@ -98,19 +94,8 @@ curl -H "Content-Type: application/json"<br/>
 QQ群:
 <img src="./doc/sql/image-20221227165831819.png" alt="image-20221227165831819" style="zoom:50%;" />
 
-### 增加了刷新token的机制
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0709/141509_1d94c9cf_130820.png "001.png")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0709/141544_94794671_130820.png "002.png")
-
 ### 更新日志
-#### 2021-11-19
-1、升级spring-boot版本为最新版本，当前版本为：2.6.0-RC1  <br/>
-2、暂时注释掉swagger的集成，后续再考虑
-#### 2021-11-29
-1、增加了过滤器返回自定义异常 <br/>
-2、去掉了redis的集成，更加轻量级 <br/>
-3、集成了hutool工具包
 
-
+见wiki
 
 

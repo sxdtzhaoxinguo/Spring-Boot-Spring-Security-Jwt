@@ -1,5 +1,6 @@
-package boss.portal.security;
+package boss.portal.config;
 
+import boss.portal.constant.AuthWhiteList;
 import boss.portal.filter.JWTAuthenticationFilter;
 import boss.portal.filter.JWTLoginFilter;
 import boss.portal.handler.Http401AuthenticationEntryPoint;
@@ -27,24 +28,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    /**
-     * 需要放行的URL
-     */
-    private static final String[] AUTH_WHITELIST = {
-            // -- register url
-            "/users/signup",
-            "/users/addTask",
-            // -- swagger ui
-            "/v2/api-docs",
-            "/swagger-resources",
-            "/swagger-resources/**",
-            "/configuration/ui",
-            "/configuration/security",
-            "/swagger-ui.html",
-            "/webjars/**"
-            // other public endpoints of your API may be appended to this array
-    };
-
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -57,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         LogoutConfigurer<HttpSecurity> httpSecurityLogoutConfigurer = http.cors().and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers(AUTH_WHITELIST).permitAll()
+                .antMatchers(AuthWhiteList.AUTH_WHITELIST).permitAll()
                 .anyRequest().authenticated()  // 所有请求需要身份认证
                 .and()
                 .exceptionHandling()
