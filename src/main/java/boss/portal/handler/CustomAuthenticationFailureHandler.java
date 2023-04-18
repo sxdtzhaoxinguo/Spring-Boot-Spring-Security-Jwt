@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * AuthenticationFailureHandler 用来解决身份验证失败的异常
+ * AuthenticationFailureHandler 用来解决身份验证失败的异常(适用表单登录方式)
  * @author zhaoxg on 2023年04月18日 10:15
  */
 public class CustomAuthenticationFailureHandler implements AuthenticationFailureHandler {
