@@ -3,9 +3,12 @@ package boss.portal.config;
 import boss.portal.constant.AuthWhiteList;
 import boss.portal.filter.JWTAuthenticationFilter;
 import boss.portal.filter.JWTLoginFilter;
-import boss.portal.handler.Http401AuthenticationEntryPoint;
+import boss.portal.handler.CustomAccessDeniedHandler;
+import boss.portal.handler.CustomAuthenticationFailureHandler;
+import boss.portal.handler.CustomAuthenticationEntryPoint;
 import boss.portal.service.impl.CustomAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -16,10 +19,14 @@ import org.springframework.security.config.annotation.web.configurers.LogoutConf
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 /**
  * SpringSecurity的配置
  * 通过SpringSecurity的配置，将JWTLoginFilter，JWTAuthenticationFilter组合在一起
+ *
  * @author zhaoxinguo on 2017/9/13.
  */
 @Configuration
@@ -43,14 +50,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(AuthWhiteList.AUTH_WHITELIST).permitAll()
                 .anyRequest().authenticated()  // 所有请求需要身份认证
                 .and()
-                .exceptionHandling()
-                .authenticationEntryPoint(
-                        new Http401AuthenticationEntryPoint("Basic realm=\"MyApp\""))
-                .and()
-//                .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler) // 自定义访问失败处理器
-//                .and()
                 .addFilter(new JWTLoginFilter(authenticationManager()))
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+                .exceptionHandling()
+                .authenticationEntryPoint(authenticationEntryPoint())// 自定义身份验证入口点
+                .accessDeniedHandler(accessDeniedHandler()) // 自定义访问失败处理器
+                .and()
+                .formLogin()
+                .failureHandler(authenticationFailureHandler())// 自定义身份验证失败处理器
+                .and()
                 .logout() // 默认注销行为为logout，可以通过下面的方式来修改
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login")// 设置注销成功后跳转页面，默认是跳转到登录页面;
@@ -64,4 +72,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // 使用自定义身份验证组件
         auth.authenticationProvider(new CustomAuthenticationProvider(userDetailsService, bCryptPasswordEncoder));
     }
+
+    @Bean
+    public AuthenticationEntryPoint authenticationEntryPoint() {
+        return new CustomAuthenticationEntryPoint();
+    }
+
+    @Bean
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+        return new CustomAuthenticationFailureHandler();
+    }
+
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        return new CustomAccessDeniedHandler();
+    }
+
 }

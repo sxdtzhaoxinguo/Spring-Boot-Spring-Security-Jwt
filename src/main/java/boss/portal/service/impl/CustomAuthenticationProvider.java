@@ -50,20 +50,19 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String password = authentication.getCredentials().toString();
         // 认证逻辑
         UserDetails userDetails = userDetailsService.loadUserByUsername(name);
-        if (null != userDetails) {
-            if (bCryptPasswordEncoder.matches(password, userDetails.getPassword())) {
-                // 这里设置权限和角色
-                ArrayList<GrantedAuthority> authorities = new ArrayList<>();
-                authorities.add( new GrantedAuthorityImpl("ROLE_ADMIN"));
-                authorities.add( new GrantedAuthorityImpl("AUTH_WRITE"));
-                // 生成令牌 这里令牌里面存入了:name,password,authorities, 当然你也可以放其他内容
-                Authentication auth = new UsernamePasswordAuthenticationToken(name, password, authorities);
-                return auth;
-            } else {
-                throw new BadCredentialsException("密码错误");
-            }
+        if (null == userDetails) {
+            throw new UsernameNotFoundException("用户不存在!");
+        }
+        if (bCryptPasswordEncoder.matches(password, userDetails.getPassword())) {
+            // 这里设置权限和角色
+            ArrayList<GrantedAuthority> authorities = new ArrayList<>();
+            authorities.add( new GrantedAuthorityImpl("ROLE_ADMIN"));
+            authorities.add( new GrantedAuthorityImpl("AUTH_WRITE"));
+            // 生成令牌 这里令牌里面存入了:name,password,authorities, 当然你也可以放其他内容
+            Authentication auth = new UsernamePasswordAuthenticationToken(name, password, authorities);
+            return auth;
         } else {
-            throw new UsernameNotFoundException("用户不存在");
+            throw new BadCredentialsException("密码错误!");
         }
     }
 
