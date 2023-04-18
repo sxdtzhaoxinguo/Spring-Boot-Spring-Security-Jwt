@@ -6,6 +6,7 @@ import boss.portal.filter.JWTLoginFilter;
 import boss.portal.handler.CustomAccessDeniedHandler;
 import boss.portal.handler.CustomAuthenticationFailureHandler;
 import boss.portal.handler.CustomAuthenticationEntryPoint;
+import boss.portal.handler.CustomAuthenticationSuccessHandler;
 import boss.portal.service.impl.CustomAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +23,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 /**
  * SpringSecurity的配置
@@ -57,12 +59,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedHandler(accessDeniedHandler()) // 自定义访问失败处理器
                 .and()
                 .formLogin()
-                .failureHandler(authenticationFailureHandler())// 自定义身份验证失败处理器
+                .successHandler(authenticationSuccessHandler())// 认证成功处理器
+                .failureHandler(authenticationFailureHandler())// 认证失败处理器
                 .and()
                 .logout() // 默认注销行为为logout，可以通过下面的方式来修改
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login")// 设置注销成功后跳转页面，默认是跳转到登录页面;
-//                .logoutSuccessHandler(customLogoutSuccessHandler)
                 .permitAll();
     }
 
@@ -76,6 +78,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationEntryPoint authenticationEntryPoint() {
         return new CustomAuthenticationEntryPoint();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return new CustomAuthenticationSuccessHandler();
     }
 
     @Bean
