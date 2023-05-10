@@ -83,16 +83,15 @@ curl -H "Content-Type: application/json"<br/>
 ![输入图片说明](https://gitee.com/uploads/images/2018/0606/144830_d28eda7f_130820.png "2.png")
 温馨提示：这里的登录接口还是使用的默认地址，如果你的token过期了，需要你重新登录生成新的token.<br/>
 
-### 加入微信交流群 <br/>
+## 微信交流群 <br/>
 
-添加微信拉你进群，备注进群（免费哈） dlzhaoxinguo <br/>
+为了更好的交流，我们新提供了微信交流群，需扫描下面的二维码，关注公众号，回复【加群】，根据提示信息，作者会拉你进群的，感谢配合！
 
-### 加入讨论群 <br/>
-微信群:
-<img src="./doc/sql/image-20221227165801242.png" alt="image-20221227165801242" style="zoom:50%;" />
+![微信交流群](./doc/sql/image-20221227165801242.png)
 
-QQ群:
-<img src="./doc/sql/image-20221227165831819.png" alt="image-20221227165831819" style="zoom:50%;" />
+### QQ群交流群 <br/>
+
+![QQ群交流群](./doc/sql/image-20221227165831819.png)
 
 ### 更新日志
 
