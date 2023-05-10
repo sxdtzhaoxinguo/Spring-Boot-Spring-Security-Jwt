@@ -95,8 +95,7 @@ curl -H "Content-Type: application/json"<br/>
 
 ## 更新日志
 
-见wiki
-
+[见wiki](https://gitee.com/micai-code/springboot-springsecurity-jwt-demo/wikis/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97)
 
 
 
